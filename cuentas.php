@@ -318,7 +318,7 @@ require_once('template/lateral-nav.php');
 
 
 <script src="js/cuentas.js"></script>
-<script src="apex.js"></script>
+<script src="js/apex.js"></script>
 
 <?php
 include_once("template/footer.php");

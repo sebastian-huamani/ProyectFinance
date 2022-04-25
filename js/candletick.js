@@ -9,9 +9,10 @@ $("#fecha-accion").val(y + "-" + m + "-" + d);
 
 var options = {
     series: [{
-    data: [{
-        // [Timestamp, O, H, L, C]
-        // m - d- y
+      // [Timestamp, O, H, L, C]
+      // m - d- y
+    data: [
+        {
           x: new Date("2022 04 01").getTime(),
           y: [34.69, 34.91, 26.76, 29.63]
         },
@@ -58,6 +59,18 @@ var options = {
         {
           x: new Date("2022 04 19").getTime(),
           y: [33.44,48.75,33.44,48.62]
+        },
+        {
+          x: new Date("2022-04-20").getTime(),
+          y: [48.62,57.15,47.81,53.71]
+        },
+        {
+          x: new Date("2022-04-21").getTime(),
+          y: [53.71,60.12,51.26,57.63]
+        },
+        {
+          x: new Date("2022-04-22").getTime(),
+          y: [57.63,57.63,32.95,33.71]
         }
     ]
     }],

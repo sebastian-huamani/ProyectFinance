@@ -4,8 +4,7 @@
 ?>
 
 <div class="acciones-box">
-    <div class="acciones-item-chart">
-
+    <!-- <div class="acciones-item-chart">
         <div class="item">
            <div class="box-item">
                 <div class="card">
@@ -35,8 +34,7 @@
                 </div>
             </div>
         </div>
-        
-    </div>
+    </div> -->
     
     <div class="form-box-acciones">
         <div class="item">
@@ -49,7 +47,7 @@
         </div>
 
         <div class="">
-            <form class="chart-candeltisk" method="POST" action="test/test.php">
+            <form class="chart-candeltisk" id="chart-candeltisk">
                 <div class="box-info">
                     <div class="item-input">
                         <label class="input">
@@ -85,11 +83,9 @@
                         <button class="">Save</button>
                     </div>
                 </div>
-                
             </form>
         </div>
     </div>
-   
 </div>
 
 
@@ -97,7 +93,7 @@
 
 
 
-
+<script src="js/app.js"></script>
 <script src="js/candletick.js"></script>
 <?php 
     include_once("template/footer.php")

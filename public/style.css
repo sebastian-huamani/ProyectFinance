@@ -533,7 +533,7 @@ input, button{
     grid-template-columns: 80% 18%;
     grid-gap: 2rem;
 }
-#list-seccion{
+#categoria-list-seccion{
     padding: 0rem 1rem 0rem 0.1rem;
     width: auto;
     min-height: 90%;
@@ -544,10 +544,10 @@ input, button{
     max-height: 38rem;
     margin: 1rem 0;
 }
-#list-seccion li:nth-child(1){
+#categoria-list-seccion li:nth-child(1){
     margin-top:0rem;
 }
-#list-seccion li{
+#categoria-list-seccion li{
     display: flex;
     justify-content: space-between;
     align-items: center;

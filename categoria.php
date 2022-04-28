@@ -46,7 +46,7 @@
 </div>
 
 
-<script src="js/app.js"></script>
+<script src="js/label.js"></script>
 
 <?php 
     include_once("template/footer.php")

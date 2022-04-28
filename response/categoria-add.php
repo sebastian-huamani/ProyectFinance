@@ -5,7 +5,7 @@
 
         $categoria = $_POST['name'];
 
-        $query = "insert into categoria(nombre) values ('$categoria')";
+        $query = "Call SP_Label_Insert('$categoria')";
         $result = mysqli_query($conn, $query);
 
         if(!$result){

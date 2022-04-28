@@ -4,13 +4,12 @@
     if(isset($_POST['id'])){
 
         $id = $_POST['id'];
-        $query = "Call SP_Label_Delete($id)";
+        $query = "call SP_Item_Delete($id)";
         $result = mysqli_query($conn, $query);
 
         if(!$result){
-            die("Query Failed");
+            die("Query Failed" . mysqli_error($conn));
         }
         echo "Task Deleted Successfuly";
     }
-    
 ?>

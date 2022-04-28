@@ -212,11 +212,7 @@ input, button{
 }
 
 
-/*Candeltisk*/
-.chart-candeltisk{
-    /* padding: 0 3rem 0rem 0rem; */
-    /* width: 80%; */
-}
+
 .box-info{
     display: grid;
     grid-template-columns: 22rem;
@@ -319,7 +315,7 @@ input, button{
     border-radius: 0.3rem;
     background: white;
     width: 100%;
-    height: 90vh!important  ;
+    height: 87vh!important;
 }
 .box-item-categoria{
     padding: 1.5rem 1.5rem 0rem 1.5rem;
@@ -556,6 +552,9 @@ input, button{
     padding: 0.5rem 1.2rem;
     border-radius: 0.4rem;
 }
+.item-seccion{
+    text-align: end;
+}
 .item-seccion button{
     margin: 0.3rem;
     background: none;
@@ -564,7 +563,9 @@ input, button{
 }
 .info-item{
     position: fixed;
-    right: 2rem;
+    right: 3rem;
+    cursor: pointer;
+    top: 4.3rem;
 }
 .sub-menu-block{
     display: flex;
@@ -576,12 +577,42 @@ input, button{
 .sub-menu-block h4{
     margin: 0;
 }
-
+#list-seccion{
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 100%;
+}
+#list-seccion li{
+    display: grid;
+    padding: 0.2rem 0.7rem;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #87cb8e;
+    border-radius: 0.5rem;
+    margin: 0.5rem 0;
+    grid-template-columns: repeat(6, 1fr);
+    text-align: center;
+}
+#list-seccion li div:nth-child(1){
+    text-align: start;
+}
 .none{
-    display: none!important; ;
+    display: none!important; 
+    transition: all 1s ease;
 }
 
-
+.Ingreso{
+    background:#87cb8e!important;
+}
+.Egreso{
+    background:#e36c6a!important;
+}
+#search-items{
+    background: var(--tradeGreen);
+    border: none;
+    padding: 0.6rem;
+    border-radius: 0.3rem;
+}
 /* CUANTAS INFORMACION */
 /* .cuentas-info-card{
     position: fixed;
@@ -623,3 +654,4 @@ input, button{
     top: 0;
     right: 0;
 } */
+

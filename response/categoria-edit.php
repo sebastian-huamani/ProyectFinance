@@ -5,7 +5,7 @@
     $id = $_POST['id'];
     $categoria = $_POST['name'];
 
-    $query = "update categoria set nombre = '$categoria' where id_categoria = $id";
+    $query = "Call SP_Label_Edit($id,'$categoria' )";
     $result = mysqli_query($conn ,$query);
 
     if(!$result){

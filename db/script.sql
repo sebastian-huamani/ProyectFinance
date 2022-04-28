@@ -44,6 +44,7 @@ create table Cuenta(
     fecha_creacion date not null,
     id_tipo_cuenta int not null,
     id_tipo_moneda int not null,
+    banco varchar(50) not null
     primary key(id_cuenta)
 );
 
@@ -121,7 +122,78 @@ insert into ItemInversion(open,high,low,close,fecha,id_Cuenta) values
 (33.44,48.75,33.44,48.62,"2022-04-19",1),
 (48.62,57.15,47.81,53.71,"2022-04-20",1),
 (53.71,60.12,51.26,57.63,"2022-04-21",1),
-(57.63,57.63,32.95,33.71,"2022-04-22",1);
+(57.63,57.63,32.95,33.71,"2022-04-22",1),
+(33.71,27.47,38.64,36.90,"2022-04-25",1);
+(36.90,31.13,36.22,33.95,"2022-04-26",1);
 
 insert into ItemInversion(open,high,low,close,fecha,id_Cuenta) values
-(57.63,57.63,32.95,33.71,"2022-04-22",1);
+(36.90,31.13,36.22,33.95,"2022-04-26",1);
+
+insert into item(nombre, precio,detalle,fecha, id_ingesoEgreso, id_estado, id_categoria, id_medioPago) values ('pague mi cel', 39.90,'pagado el celular','25-04-25',1, 1,2 ,1 )
+
+insert into cuenta(nombre,  valor, fecha_ciclo_factura, fecha_cierre_facturacion, fecha_pago, fecha_creacion, id_tipo_cuenta, id_tipo_moneda) values ('cuenta principa', 930.00, null,null,null,'2022-01-08', 1,1)
+
+
+
+-- prcedure item
+DROP PROCEDURE IF EXISTS `SP_Item_Listar`;
+create procedure SP_Item_Listar()
+select I.id_Item, I.nombre, I.precio, I.detalle, I.fecha, M.nombre "id_IngresoEgreso", E.nombre "id_estado", C.nombre "id_categoria", TC.nombre "id_medioPago"
+from item I 
+inner join modalidad M 
+on I.id_ingesoEgreso = M.id_modalidad
+inner join estado E
+on I.id_estado = E.id_estado
+inner join categoria C
+on I.id_categoria = C.id_categoria
+inner join cuenta TC
+on I.id_medioPago = TC.id_cuenta;
+
+
+DROP PROCEDURE IF EXISTS SP_Item_Buscar_id;
+create procedure SP_Item_Buscar_id(id int)
+select * from item where id_Item = id;
+
+DROP PROCEDURE IF EXISTS SP_Item_Insertar;
+create procedure SP_Item_Insertar(nom varchar(50), pre int, detall varchar(250), fecha date, ie int , esta int, cat int, medPag int)
+insert into item(nombre, precio,detalle,fecha, id_ingesoEgreso, id_estado, id_categoria, id_medioPago)  values (nom, pre, detall, fecha,  ie, esta, cat, medPag);
+
+DROP PROCEDURE IF EXISTS SP_Item_Delete;
+create procedure SP_Item_Delete(id int)
+delete from item where id_Item = id;
+
+DROP PROCEDURE IF EXISTS SP_Item_Edit;
+create procedure SP_Item_Edit(id int, nom varchar(50), pre int, detall varchar(250), fecha date, ie int , esta int, cat int, medPag int)
+UPDATE item SET nombre = nom, precio = pre, detalle = detall, fecha = fecha, id_ingesoEgreso = ie, id_estado = esta, id_categoria = cat, id_medioPago = medPag WHERE id_Item = id;
+
+-- prcedure label
+DROP PROCEDURE IF EXISTS SP_Label_Listar;
+create procedure SP_Label_Listar()
+select * from categoria;
+
+DROP PROCEDURE IF EXISTS SP_Label_Insert;
+create procedure SP_Label_Insert(cat varchar(50))
+insert into categoria(nombre) values(cat);
+
+DROP PROCEDURE IF EXISTS SP_Label_Edit;
+create procedure SP_Label_Edit(id int, nom varchar(50))
+update categoria set nombre = nom where id_categoria = id;
+
+DROP PROCEDURE IF EXISTS SP_Label_Delete;
+create procedure SP_Label_Delete(id int)
+delete from categoria where id_categoria = id;
+
+-- prcedure cuentas 
+DROP PROCEDURE IF EXISTS SP_Cuenta_List;
+create procedure SP_Cuenta_List()
+select C.id_cuenta, C.nombre, C.valor, C.fecha_ciclo_factura, C.fecha_cierre_facturacion, C.fecha_pago, C.fecha_creacion ,TC.nombre  'tipo_cuenta', TM.nombre 'tipo_moneda', C.banco
+from cuenta C
+inner join TipoCuenta TC 
+on C.id_tipo_cuenta = TC.id_tipocuenta
+inner join TipoMoneda TM
+on C.id_tipo_moneda = TM.id_moneda;
+
+-- DROP PROCEDURE IF EXISTS SP_Cuenta_Buscar_Id;
+-- CREATE PROCEDURE SP_Cuenta_Buscar_Id(id int)
+-- select *    
+

@@ -18,7 +18,8 @@ require_once('template/lateral-nav.php');
     <div class="">
         <div class="item-categoria">
             <div id="items-cuentas" dir="rtl">
-                <div class="item">
+
+                <!-- <div class="item">
                     <div class="item-card">
                         <div class="footer-ic">
                             <p class="fecha-ic">fecha creacion: 10/10/2021</p>
@@ -30,46 +31,8 @@ require_once('template/lateral-nav.php');
                             <p class="tipo-ic"> <span class="entidad-ic">Scotiabank : </span>credito</p>
                         </div>
                     </div>
-                </div>
-                <div class="item">
-                    <div class="item-card">
-                        <div class="footer-ic">
-                            <p class="fecha-ic">fecha creacion: 10/10/2021</p>
-                            <button type="submit" class="btn-ic">Informacion</button>
-                        </div>
-                        <p class="bin-ic">4561 XXXX XXXX XXXX</p>
-                        <div class="footer-ic">
-                            <button class="btn-ic"> <i class="fa-solid fa-angle-right"></i> Ver</button>
-                            <p class="tipo-ic"> <span class="entidad-ic">Inversion : </span>FBS</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="item-card">
-                        <div class="footer-ic">
-                            <p class="fecha-ic">fecha creacion: 10/10/2021</p>
-                            <button type="submit" class="btn-ic">Informacion</button>
-                        </div>
-                        <p class="bin-ic">4561 XXXX XXXX XXXX</p>
-                        <div class="footer-ic">
-                            <button class="btn-ic"> <i class="fa-solid fa-angle-right"></i> Ver</button>
-                            <p class="tipo-ic"> <span class="entidad-ic">Scotiabank : </span>credito</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="item-card">
-                        <div class="footer-ic">
-                            <p class="fecha-ic">fecha creacion: 10/10/2021</p>
-                            <button type="submit" class="btn-ic">Informacion</button>
-                        </div>
-                        <p class="bin-ic">4561 XXXX XXXX XXXX</p>
-                        <div class="footer-ic">
-                            <button class="btn-ic"> <i class="fa-solid fa-angle-right"></i> Ver</button>
-                            <p class="tipo-ic"> <span class="entidad-ic">Inversion : </span>FBS</p>
-                        </div>
-                    </div>
-                </div>
+                </div> -->
+
             </div>
         </div>
     </div>
@@ -109,9 +72,9 @@ require_once('template/lateral-nav.php');
     </div>
 
     <div class="">
-        <div class="item transacciones-cuenta">
+        <form class="item transacciones-cuenta" id="form-count" method="POST">
             <div class="transacciones-option">
-                <select name="" id="Month">
+                <select name="mount" id="Month">
                     <option value="" selected disabled>Mes</option>
                     <option value="01">January</option>
                     <option value="02">February</option>
@@ -126,11 +89,12 @@ require_once('template/lateral-nav.php');
                     <option value="11">November</option>
                     <option value="12">December</option>
                 </select>
-                <select name="" id="Year">
+                <select name="year" id="Year">
                     <option value="" selected disabled>Año</option>
                     <option value="2021">2021</option>
                     <option value="2021">2022</option>
                 </select>
+                <button type="submit" id="search-items"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
             <ul id="list">
                 <li class="transaccion-item">
@@ -294,7 +258,7 @@ require_once('template/lateral-nav.php');
                     <p class="trans-cantidad">99.9</p>
                 </li>
             </ul>
-        </div>
+        </form>
     </div>
 </div>
 
@@ -317,7 +281,7 @@ require_once('template/lateral-nav.php');
 </div> -->
 
 
-<script src="js/cuentas.js"></script>
+<script src="js/cuenta.js"></script>
 <script src="js/apex.js"></script>
 
 <?php

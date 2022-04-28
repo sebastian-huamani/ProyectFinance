@@ -42,8 +42,8 @@ $(document).ready(function(){
 
         let url = editing === false ? 'response/categoria-add.php' : 'response/categoria-edit.php';
         $.post(url, postData, function(response){
-            fetchList();
             $('#form-categorias').trigger('reset');
+            fetchList();
             editing = false;
         });
         e.preventDefault();

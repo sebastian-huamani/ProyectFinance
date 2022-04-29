@@ -31,14 +31,14 @@ $(document).ready(function(){
 
     function cmbCuentas(){
         $.ajax({
-            url: 'response/cuentas.php',
+            url: 'response/cuentas-list.php',
             type: 'POST',
             success: function(response){
                 let cards = JSON.parse(response);
                 let template = " <option value='' disabled selected>Cuenta</option>";
                 cards.forEach(card => {
                     template += `
-                    <option value="${card.id}">${card.name}</option>
+                    <option value="${card.id}">${card.nombre}</option>
                     `
                 });
                 $('#cuentas').html(template);
@@ -67,7 +67,7 @@ $(document).ready(function(){
         var d = f.getDate();
         var m = f.getMonth() + 1;
         var y = f.getFullYear();
-        if(d<10){ d='0'+d; }
+        if(d<10){ d='0'+d;}
         if(m<10){ m='0'+m }
         $("#fecha").val(y + "-" + m + "-" + d);
     }
@@ -83,7 +83,7 @@ $(document).ready(function(){
                         <a href="#">Nombre</a>
                     </div>
                     <div>
-                        <p>Estado</p>
+                        <p>Categoria</p>
                     </div>
                     <div>
                         <p>Valor</p>
@@ -105,7 +105,7 @@ $(document).ready(function(){
                             <a href="#">${item.nombre}</a>
                         </div>
                         <div>
-                            <p>${item.modalidad}</p>
+                            <p>${item.categoria}</p>
                         </div>
                         <div>
                             <p>${item.precio}</p>

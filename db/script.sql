@@ -123,11 +123,14 @@ insert into ItemInversion(open,high,low,close,fecha,id_Cuenta) values
 (48.62,57.15,47.81,53.71,"2022-04-20",1),
 (53.71,60.12,51.26,57.63,"2022-04-21",1),
 (57.63,57.63,32.95,33.71,"2022-04-22",1),
-(33.71,27.47,38.64,36.90,"2022-04-25",1);
-(36.90,31.13,36.22,33.95,"2022-04-26",1);
+(33.71,27.47,38.64,36.90,"2022-04-25",1),
+(36.90,31.13,36.22,33.95,"2022-04-26",1),
+(33.95,19.65,33.97,19.65,"2022-04-27",1),
+(19.65,19.65,15.21,16.23,"2022-04-28",1);
+
 
 insert into ItemInversion(open,high,low,close,fecha,id_Cuenta) values
-(36.90,31.13,36.22,33.95,"2022-04-26",1);
+(19.65,19.65,15.21,16.23,"2022-04-28",1);
 
 insert into item(nombre, precio,detalle,fecha, id_ingesoEgreso, id_estado, id_categoria, id_medioPago) values ('pague mi cel', 39.90,'pagado el celular','25-04-25',1, 1,2 ,1 )
 
@@ -193,7 +196,24 @@ on C.id_tipo_cuenta = TC.id_tipocuenta
 inner join TipoMoneda TM
 on C.id_tipo_moneda = TM.id_moneda;
 
--- DROP PROCEDURE IF EXISTS SP_Cuenta_Buscar_Id;
--- CREATE PROCEDURE SP_Cuenta_Buscar_Id(id int)
--- select *    
+--Items count list where month and year  
+DROP PROCEDURE IF EXISTS SP_Items_Cuenta_Listar;
+CREATE PROCEDURE SP_Items_Cuenta_Listar(m int , y int, c int)
+select I.id_Item, I.nombre, I.precio, I.detalle, I.fecha, M.nombre "id_IngresoEgreso", E.nombre "id_estado", C.nombre "id_categoria", TC.nombre "id_medioPago"
+from item I 
+inner join modalidad M
+on I.id_ingesoEgreso = M.id_modalidad
+inner join estado E 
+on I.id_estado = E.id_estado
+inner join categoria C
+on I.id_categoria = C.id_categoria
+inner join cuenta TC
+on I.id_medioPago = TC.id_cuenta 
+where MONTH(I.fecha) = m AND YEAR(I.fecha) = y and I.id_medioPago = c;
 
+DROP PROCEDURE IF EXISTS SP_Cuenta_Insertar;
+CREATE PROCEDURE SP_Cuenta_Insertar(n varchar(50), pre decimal ,fciclof date , fcierref date ,fpago date , fcreacion date ,cuenta int  , moneda int , banco varchar(50))
+insert into cuenta(nombre , valor,fecha_ciclo_factura,fecha_cierre_facturacion, fecha_pago, fecha_creacion,id_tipo_cuenta ,id_tipo_moneda ,banco) 
+values (n,pre, fciclof,fcierref,fpago, fcreacion, cuenta,moneda,banco);
+
+call SP_Cuenta_Insertar('compras',450,null, null, null, '2022-04-28', 2,2,'Scotiabank');

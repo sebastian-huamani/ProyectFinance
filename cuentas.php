@@ -5,7 +5,7 @@ require_once('template/lateral-nav.php');
 
 <div class="menu-superior-cuentas">
     <div class="menu-option-left">
-        <p class="menu-card-name">Nombre Tarjeta Tarjeta Tarjeta</p>
+        <p class="menu-card-name" id="nombre-cuenta">Nombre Tarjeta Tarjeta Tarjeta</p>
     </div>
     <div class="menu-option-right">
         <a class="menu-option" href="">Modificar</a>
@@ -74,6 +74,7 @@ require_once('template/lateral-nav.php');
     <div class="">
         <form class="item transacciones-cuenta" id="form-count" method="POST">
             <div class="transacciones-option">
+                <input type="hidden" id="cuentaId">
                 <select name="mount" id="Month">
                     <option value="" selected disabled>Mes</option>
                     <option value="01">January</option>
@@ -92,12 +93,12 @@ require_once('template/lateral-nav.php');
                 <select name="year" id="Year">
                     <option value="" selected disabled>Año</option>
                     <option value="2021">2021</option>
-                    <option value="2021">2022</option>
+                    <option value="2022">2022</option>
                 </select>
                 <button type="submit" id="search-items"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
             <ul id="list">
-                <li class="transaccion-item">
+                <!-- <li class="transaccion-item">
                     <div class="trans-icon">
                         <i class="fa-regular fa-paper-plane"></i>
                     </div>
@@ -126,137 +127,8 @@ require_once('template/lateral-nav.php');
                         <p class="trans-fecha">14, enero 1987</p>
                     </div>
                     <p class="trans-cantidad">99.9</p>
-                </li>
-                <li class="transaccion-item">
-                    <div class="trans-icon">
-                        <i class="fa-regular fa-paper-plane"></i>
-                    </div>
-                    <div class="trans-info">
-                        <p class="trans-descripcion">Pago Servicio</p>
-                        <p class="trans-fecha">14, enero 1987</p>
-                    </div>
-                    <p class="trans-cantidad">99.9</p>
-                </li>
-                <li class="transaccion-item">
-                    <div class="trans-icon">
-                        <i class="fa-regular fa-paper-plane"></i>
-                    </div>
-                    <div class="trans-info">
-                        <p class="trans-descripcion">Pago Servicio</p>
-                        <p class="trans-fecha">14, enero 1987</p>
-                    </div>
-                    <p class="trans-cantidad">99.9</p>
-                </li>
-                <li class="transaccion-item">
-                    <div class="trans-icon">
-                        <i class="fa-regular fa-share-from-square"></i>
-                    </div>
-                    <div class="trans-info">
-                        <p class="trans-descripcion">Pago Servicio</p>
-                        <p class="trans-fecha">14, enero 1987</p>
-                    </div>
-                    <p class="trans-cantidad">99.9</p>
-                </li>
-                <li class="transaccion-item">
-                    <div class="trans-icon">
-                        <i class="fa-solid fa-arrow-right-arrow-left"></i>
-                    </div>
-                    <div class="trans-info">
-                        <p class="trans-descripcion">Pago Servicio</p>
-                        <p class="trans-fecha">14, enero 1987</p>
-                    </div>
-                    <p class="trans-cantidad">99.9</p>
-                </li>
-                <li class="transaccion-item">
-                    <div class="trans-icon">
-                        <i class="fa-solid fa-arrow-right-arrow-left"></i>
-                    </div>
-                    <div class="trans-info">
-                        <p class="trans-descripcion">Pago Servicio</p>
-                        <p class="trans-fecha">14, enero 1987</p>
-                    </div>
-                    <p class="trans-cantidad">99.9</p>
-                </li>
-                <li class="transaccion-item">
-                    <div class="trans-icon">
-                        <i class="fa-regular fa-paper-plane"></i>
-                    </div>
-                    <div class="trans-info">
-                        <p class="trans-descripcion">Pago Servicio</p>
-                        <p class="trans-fecha">14, enero 1987</p>
-                    </div>
-                    <p class="trans-cantidad">99.9</p>
-                </li>
-                <li class="transaccion-item">
-                    <div class="trans-icon">
-                        <i class="fa-regular fa-paper-plane"></i>
-                    </div>
-                    <div class="trans-info">
-                        <p class="trans-descripcion">Pago Servicio</p>
-                        <p class="trans-fecha">14, enero 1987</p>
-                    </div>
-                    <p class="trans-cantidad">99.9</p>
-                </li>
-                <li class="transaccion-item">
-                    <div class="trans-icon">
-                        <i class="fa-regular fa-share-from-square"></i>
-                    </div>
-                    <div class="trans-info">
-                        <p class="trans-descripcion">Pago Servicio</p>
-                        <p class="trans-fecha">14, enero 1987</p>
-                    </div>
-                    <p class="trans-cantidad">99.9</p>
-                </li>
-                <li class="transaccion-item">
-                    <div class="trans-icon">
-                        <i class="fa-solid fa-arrow-right-arrow-left"></i>
-                    </div>
-                    <div class="trans-info">
-                        <p class="trans-descripcion">Pago Servicio</p>
-                        <p class="trans-fecha">14, enero 1987</p>
-                    </div>
-                    <p class="trans-cantidad">99.9</p>
-                </li>
-                <li class="transaccion-item">
-                    <div class="trans-icon">
-                        <i class="fa-regular fa-paper-plane"></i>
-                    </div>
-                    <div class="trans-info">
-                        <p class="trans-descripcion">Pago Servicio</p>
-                        <p class="trans-fecha">14, enero 1987</p>
-                    </div>
-                    <p class="trans-cantidad">99.9</p>
-                </li>
-                <li class="transaccion-item">
-                    <div class="trans-icon">
-                        <i class="fa-solid fa-arrow-right-arrow-left"></i>
-                    </div>
-                    <div class="trans-info">
-                        <p class="trans-descripcion">Pago Servicio</p>
-                        <p class="trans-fecha">14, enero 1987</p>
-                    </div>
-                    <p class="trans-cantidad">99.9</p>
-                </li>
-                <li class="transaccion-item">
-                    <div class="trans-icon">
-                        <i class="fa-regular fa-share-from-square"></i>
-                    </div>
-                    <div class="trans-info">
-                        <p class="trans-descripcion">Pago Servicio</p>
-                        <p class="trans-fecha">14, enero 1987</p>
-                    </div>
-                    <p class="trans-cantidad">99.9</p>
-                </li>
-                <li class="transaccion-item">
-                    <div class="trans-icon">
-                        <i class="fa-regular fa-share-from-square"></i>
-                    </div>
-                    <div class="trans-info">
-                        <p class="trans-descripcion">Pago Servicio</p>
-                        <p class="trans-fecha">14, enero 1987</p>
-                    </div>
-                    <p class="trans-cantidad">99.9</p>
-                </li>
+                </li> -->
+               
             </ul>
         </form>
     </div>

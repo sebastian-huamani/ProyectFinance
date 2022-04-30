@@ -4,24 +4,35 @@ $(document).ready(function(){
     cmbCuentas();
     fetchListItems();
     cmbEstados();
-    setDateToDay();
+    setDateToDay("#fecha");
 
     $('#move-action').on('click', function(){
         $('.categoria-item').toggleClass('none');
         $('.item-categoria').toggleClass('none');
-
     });
+
+    function Limpiar(){
+        $('#idItem').val(" ");
+        $('#nombre').val(" ");
+        $('#precio').val(" ");
+        $('#detalle').val(" ");
+        $('#fecha').val(" ");   
+        $('#modalidades').val(" ");
+        $('#estados').val(" ");
+        $('#categorias').val(" ");
+        $('#cuentas').val(" ");
+    }
 
     function cmModalidad(){
         $.ajax({
-            url: 'response/cmbModalidad.php',
+            url: 'response/categoria-list.php',
             type: 'POST',
             success: function(response){
                 let labels = JSON.parse(response);
                 let template = " <option value='' disabled selected>Categoria</option>";
                 labels.forEach(label => {
                     template += `
-                    <option value="${label.id}">${label.name}</option>
+                    <option value="${label.id}">${label.nombre}</option>
                     `
                 });
                 $('#categorias').html(template);
@@ -62,14 +73,14 @@ $(document).ready(function(){
         });
     }
 
-    function setDateToDay(){
+    function setDateToDay(elemet){
         var f = new Date();
         var d = f.getDate();
         var m = f.getMonth() + 1;
         var y = f.getFullYear();
         if(d<10){ d='0'+d;}
         if(m<10){ m='0'+m }
-        $("#fecha").val(y + "-" + m + "-" + d);
+        $(elemet).val(y + "-" + m + "-" + d);
     }
     
     function fetchListItems(){
@@ -147,7 +158,7 @@ $(document).ready(function(){
         $.post( url ,postData, function(response){
             $('#form-item').trigger('reset');
             fetchListItems();
-            setDateToDay(); 
+            setDateToDay("#fecha"); 
             editing = false;
         });
         e.preventDefault();
@@ -164,24 +175,24 @@ $(document).ready(function(){
     });
 
     $(document).on('click', '.edit-item', function(){
-            let elemet = $(this)[0].parentElement.parentElement;
-            let id = $(elemet).attr('id');
-            $.post('response/item-data.php', {id}, function(response){
-                let Data = JSON.parse(response);
-                $('#idItem').val(Data.id);
-                $('#nombre').val(Data.nombre);
-                $('#precio').val(Data.precio);
-                $('#detalle').val(Data.detalle);
-                $('#fecha').val(Data.fecha);
-                $('#modalidades').val(Data.modalidad);
-                $('#estados').val(Data.estado);
-                $('#categorias').val(Data.categoria);
-                $('#cuentas').val(Data.cuenta);
+        let elemet = $(this)[0].parentElement.parentElement;
+        let id = $(elemet).attr('id');
+        $.post('response/item-data.php', {id}, function(response){
+            let Data = JSON.parse(response);
+            $('#idItem').val(Data.id);
+            $('#nombre').val(Data.nombre);
+            $('#precio').val(Data.precio);
+            $('#detalle').val(Data.detalle);
+            $('#fecha').val(Data.fecha);
+            $('#modalidades').val(Data.modalidad);
+            $('#estados').val(Data.estado);
+            $('#categorias').val(Data.categoria);
+            $('#cuentas').val(Data.cuenta);
 
-                $('.item-categoria').toggleClass('none');
-                $('.categoria-item').toggleClass('none');
-                editing = true;
-            });
+            $('.item-categoria').toggleClass('none');
+            $('.categoria-item').toggleClass('none');
+            editing = true;
+        });
     });
 
 

@@ -196,6 +196,23 @@ on C.id_tipo_cuenta = TC.id_tipocuenta
 inner join TipoMoneda TM
 on C.id_tipo_moneda = TM.id_moneda;
 
+DROP PROCEDURE IF EXISTS SP_Cuenta_Insertar;
+CREATE PROCEDURE SP_Cuenta_Insertar(n varchar(50), pre decimal ,fciclof date , fcierref date ,fpago date , fcreacion date ,cuenta int  , moneda int , banco varchar(50))
+insert into cuenta(nombre , valor,fecha_ciclo_factura,fecha_cierre_facturacion, fecha_pago, fecha_creacion,id_tipo_cuenta ,id_tipo_moneda ,banco) 
+values (n,pre, fciclof,fcierref,fpago, fcreacion, cuenta,moneda,banco);
+
+DROP PROCEDURE IF EXISTS SP_cuenta_eliminar;
+CREATE PROCEDURE SP_cuenta_eliminar(id int)
+delete from cuenta where id_cuenta = id; 
+
+DROP PROCEDURE IF EXISTS SP_Cuenta_Edit;
+CREATE PROCEDURE SP_Cuenta_Edit(id int, n varchar(50), val decimal ,fciclof date , fcierref date ,fpago date , fcreacion date ,cuenta int  , moneda int , ban varchar(50))
+update cuenta set nombre = n , valor =val,fecha_ciclo_factura = fciclof,fecha_cierre_facturacion = fcierref, fecha_pago = fcreacion, fecha_creacion = fcreacion,id_tipo_cuenta = cuenta ,id_tipo_moneda = moneda ,banco = ban where id_cuenta = id;
+
+DROP PROCEDURE IF EXISTS SP_Cuenta_Buscar_id;
+create procedure SP_Cuenta_Buscar_id(id int)
+select * from cuenta where id_cuenta = id;
+
 --Items count list where month and year  
 DROP PROCEDURE IF EXISTS SP_Items_Cuenta_Listar;
 CREATE PROCEDURE SP_Items_Cuenta_Listar(m int , y int, c int)
@@ -211,9 +228,16 @@ inner join cuenta TC
 on I.id_medioPago = TC.id_cuenta 
 where MONTH(I.fecha) = m AND YEAR(I.fecha) = y and I.id_medioPago = c;
 
-DROP PROCEDURE IF EXISTS SP_Cuenta_Insertar;
-CREATE PROCEDURE SP_Cuenta_Insertar(n varchar(50), pre decimal ,fciclof date , fcierref date ,fpago date , fcreacion date ,cuenta int  , moneda int , banco varchar(50))
-insert into cuenta(nombre , valor,fecha_ciclo_factura,fecha_cierre_facturacion, fecha_pago, fecha_creacion,id_tipo_cuenta ,id_tipo_moneda ,banco) 
-values (n,pre, fciclof,fcierref,fpago, fcreacion, cuenta,moneda,banco);
 
-call SP_Cuenta_Insertar('compras',450,null, null, null, '2022-04-28', 2,2,'Scotiabank');
+
+-- Tipo Cuentas
+DROP PROCEDURE IF EXISTS SP_TipoCuenta_List;
+CREATE PROCEDURE SP_TipoCuenta_List()
+select * from TipoCuenta;
+
+-- Tipo Monedas
+DROP PROCEDURE IF EXISTS SP_TipoMoneda_List;
+CREATE PROCEDURE SP_TipoMoneda_List()
+select * from TipoMoneda;
+
+

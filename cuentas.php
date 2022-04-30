@@ -8,13 +8,13 @@ require_once('template/lateral-nav.php');
         <p class="menu-card-name" id="nombre-cuenta">Nombre Tarjeta Tarjeta Tarjeta</p>
     </div>
     <div class="menu-option-right">
-        <a class="menu-option" href="">Modificar</a>
-        <a class="menu-option" href="">Eliminar</a>
-        <a href="crear-cuenta.php" class="menu-option">Crear Nueva Cuenta</a>
+        <button class="menu-option" id="edit-count" href="">Modificar</button>
+        <button class="menu-option" id="delete-count" href="">Eliminar</button>
+        <button class="menu-option" id="crear-cuenta">Crear Nueva Cuenta</button>
     </div>
 </div>
 
-<div class="cuentas-box">
+<div class="cuentas-box" id="Home">
     <div class="">
         <div class="item-categoria">
             <div id="items-cuentas" dir="rtl">
@@ -128,11 +128,92 @@ require_once('template/lateral-nav.php');
                     </div>
                     <p class="trans-cantidad">99.9</p>
                 </li> -->
-               
+
             </ul>
         </form>
     </div>
 </div>
+
+<form method="post" id="form-cuenta" class="none">
+    <h4 class="sub-title">Nueva Cuenta</h4>
+    <div class="box-info-reverse">
+        <div class="item-input">
+            <label class="input">
+                <input class="input__field" name="nombre" type="text" id="nombre" placeholder=" " require />
+                <span class="input__label">Nombre</span>
+            </label>
+        </div>
+
+        <div class="item-input">
+            <label class="input">
+                <input class="input__field" name="valor" type="number" step=".01" id="valor"  placeholder=" " require/>
+                <span class="input__label">Valor</span>
+            </label>  
+        </div>
+
+        <div class="item-input">
+            <select name="tipoCuenta" id="tipoCuenta" class="option-form" require>
+                <!-- <option value="" disabled selected>Tipo Cuenta</option>
+                <option value="1">Tarjeta Debito</option>
+                <option value="2">Tarjeta Credito</option> -->
+            </select>
+        </div>
+
+        <div class="item-input">
+            <select name="tipoMoneda" id="tipoMoneda" class="option-form" require>
+                <!-- <option value="" disabled selected>Tipo Moneda</option>
+                <option value="1">Dolar</option>
+                <option value="2">Soles</option> -->
+            </select>
+        </div>
+
+        <div class="item-input">
+            <label class="input">
+                <input class="input__field" name="banco" type="text" id="banco" placeholder=" " require />
+                <span class="input__label">Banco</span>
+            </label>
+        </div>
+
+        <div class="item-input">
+            <label class="input">
+                <input class="input__field" name="fcreacion" type="date" id="fcreacion" placeholder=" " require />
+                <span class="input__label">F. Creacion</span>
+            </label>
+        </div>
+
+    </div>
+    
+    <div class="box-info-reverse-t">
+        
+
+
+        <div class="item-input">
+            <label class="input">
+                <input class="input__field" name="fciclof" type="date" id="fciclof" placeholder=" " require />
+                <span class="input__label">F. Ciclo Factura</span>
+            </label>
+        </div>
+
+        <div class="item-input">
+            <label class="input">
+                <input class="input__field" name="fcierref" type="date" id="fcierref" placeholder=" " require />
+                <span class="input__label">F. Cierre Facturacion</span>
+            </label>
+        </div>
+
+        <div class="item-input">
+            <label class="input">
+                <input class="input__field" name="fPago" type="date" id="fpago" placeholder=" " require />
+                <span class="input__label">F. Pago</span>
+            </label>
+        </div>
+    </div>
+
+    <div class="send">  
+        <button class="" id="save-item">Save</button>
+    </div>
+</form>
+
 
 <!-- 
 <div class="cuentas-info-card none">

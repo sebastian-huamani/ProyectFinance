@@ -8,12 +8,6 @@ create table  Estado(
     primary key(id_estado)
 );
 
-create table Modalidad(
-    id_modalidad int auto_increment not null,
-    nombre varchar(50),
-    primary key(id_modalidad)
-);
-
 create table Categoria(
     id_categoria int auto_increment not null,
     nombre varchar(50),
@@ -24,6 +18,7 @@ create table TipoMoneda(
     id_moneda int auto_increment not null,
     nombre varchar(40) not null,
     valor_cambio decimal(6,2) not null,
+    ticket char(6) not null,
     primary key(id_moneda)
 );
 
@@ -50,11 +45,10 @@ create table Cuenta(
 
 create table Item(
     id_Item int auto_increment not null,
-    nombre varchar(60) not null,
+    nombre varchar(60)  not null,
     precio  decimal(9,2) not null,
     detalle varchar( 255) not null,
     fecha date not null,
-    id_ingesoEgreso int not null,
     id_estado int not null,
     id_categoria int not null,
     id_medioPago int not null,
@@ -86,7 +80,6 @@ create table ItemInversion(
 alter table Cuenta add constraint fk_cuenta_tipocuenta foreign key(id_tipo_cuenta) references TipoCuenta(id_tipocuenta);
 alter table Cuenta add constraint fk_cuenta_tipomoneda foreign key(id_tipo_moneda) references TipoMoneda(id_moneda);
 
-alter table Item add constraint fk_Item_IE foreign key(id_ingesoEgreso)references Modalidad(id_modalidad);
 alter table Item add constraint fk_Item_Estado foreign key(id_estado) references Estado(id_estado);
 alter table Item add constraint fk_Item_Categoria foreign key(id_categoria) references Categoria(id_categoria);
 alter table Item add constraint fk_Item_medioPago foreign key(id_medioPago) references Cuenta(id_cuenta);
@@ -95,10 +88,9 @@ alter table ItemInversion add constraint fk_ItInv_Cuenta foreign key(id_Cuenta) 
 
 
 insert into Estado(nombre) values("Aprobado"),("Por Aprobar");
-insert into Modalidad(nombre) values("Ingreso"), ("Egreso");
 insert into Categoria(nombre) values("Servicio Luz"),("Internet Hogar"),("Servicio Telefonico");
 
-insert into TipoMoneda(nombre) values("Dolar"),("Soles");
+insert into TipoMoneda(nombre) values("Dolar",3.75,"$"),("Soles",1.00,"S/.");
 insert into TipoCuenta(nombre) values("Tarjeta Debito"),("Tarjeta Credito"),("Inversiones");
 
 insert into Cuenta(nombre,valor,fecha_ciclo_factura,fecha_cierre_facturacion,fecha_pago,fecha_creacion,id_tipo_cuenta,id_tipo_moneda) 
@@ -132,8 +124,6 @@ insert into ItemInversion(open,high,low,close,fecha,id_Cuenta) values
 insert into ItemInversion(open,high,low,close,fecha,id_Cuenta) values
 (19.65,19.65,15.21,16.23,"2022-04-28",1);
 
-insert into item(nombre, precio,detalle,fecha, id_ingesoEgreso, id_estado, id_categoria, id_medioPago) values ('pague mi cel', 39.90,'pagado el celular','25-04-25',1, 1,2 ,1 )
-
 insert into cuenta(nombre,  valor, fecha_ciclo_factura, fecha_cierre_facturacion, fecha_pago, fecha_creacion, id_tipo_cuenta, id_tipo_moneda) values ('cuenta principa', 930.00, null,null,null,'2022-01-08', 1,1)
 
 
@@ -141,10 +131,8 @@ insert into cuenta(nombre,  valor, fecha_ciclo_factura, fecha_cierre_facturacion
 -- prcedure item
 DROP PROCEDURE IF EXISTS `SP_Item_Listar`;
 create procedure SP_Item_Listar()
-select I.id_Item, I.nombre, I.precio, I.detalle, I.fecha, M.nombre "id_IngresoEgreso", E.nombre "id_estado", C.nombre "id_categoria", TC.nombre "id_medioPago"
+select I.id_Item, I.nombre, I.precio, I.detalle, I.fecha, E.nombre "id_estado", C.nombre "id_categoria", TC.nombre "id_medioPago"
 from item I 
-inner join modalidad M 
-on I.id_ingesoEgreso = M.id_modalidad
 inner join estado E
 on I.id_estado = E.id_estado
 inner join categoria C
@@ -154,20 +142,29 @@ on I.id_medioPago = TC.id_cuenta;
 
 
 DROP PROCEDURE IF EXISTS SP_Item_Buscar_id;
-create procedure SP_Item_Buscar_id(id int)
-select * from item where id_Item = id;
+create procedure SP_Item_Buscar_id( IN id int,IN cuenta int)
+begin 
+    select  I.id_Item, I.nombre, I.precio, I.detalle, I.fecha, E.nombre "id_estado", C.nombre "id_categoria", I.id_medioPago
+    from item I 
+    inner join categoria C 
+    on I.id_categoria = C.id_categoria
+    inner join estado E
+    on I.id_estado = E.id_estado
+    where I.id_Item = id and I.id_medioPago = cuenta;
+end;
+
 
 DROP PROCEDURE IF EXISTS SP_Item_Insertar;
-create procedure SP_Item_Insertar(nom varchar(50), pre int, detall varchar(250), fecha date, ie int , esta int, cat int, medPag int)
-insert into item(nombre, precio,detalle,fecha, id_ingesoEgreso, id_estado, id_categoria, id_medioPago)  values (nom, pre, detall, fecha,  ie, esta, cat, medPag);
+create procedure SP_Item_Insertar(nom varchar(50), pre int, detall varchar(250), fecha date, esta int, cat int, medPag int)
+insert into item(nombre, precio,detalle,fecha, id_estado, id_categoria, id_medioPago) values (nom, pre, detall, fecha, esta, cat, medPag);
 
 DROP PROCEDURE IF EXISTS SP_Item_Delete;
 create procedure SP_Item_Delete(id int)
 delete from item where id_Item = id;
 
 DROP PROCEDURE IF EXISTS SP_Item_Edit;
-create procedure SP_Item_Edit(id int, nom varchar(50), pre int, detall varchar(250), fecha date, ie int , esta int, cat int, medPag int)
-UPDATE item SET nombre = nom, precio = pre, detalle = detall, fecha = fecha, id_ingesoEgreso = ie, id_estado = esta, id_categoria = cat, id_medioPago = medPag WHERE id_Item = id;
+create procedure SP_Item_Edit(id int, nom varchar(50), pre int, detall varchar(250), fecha date,  esta int, cat int, medPag int)
+UPDATE item SET nombre = nom, precio = pre, detalle = detall, fecha = fecha,  id_estado = esta, id_categoria = cat, id_medioPago = medPag WHERE id_Item = id;
 
 -- prcedure label
 DROP PROCEDURE IF EXISTS SP_Label_Listar;
@@ -216,19 +213,17 @@ select * from cuenta where id_cuenta = id;
 --Items count list where month and year  
 DROP PROCEDURE IF EXISTS SP_Items_Cuenta_Listar;
 CREATE PROCEDURE SP_Items_Cuenta_Listar(m int , y int, c int)
-select I.id_Item, I.nombre, I.precio, I.detalle, I.fecha, M.nombre "id_IngresoEgreso", E.nombre "id_estado", C.nombre "id_categoria", TC.nombre "id_medioPago"
-from item I 
-inner join modalidad M
-on I.id_ingesoEgreso = M.id_modalidad
-inner join estado E 
-on I.id_estado = E.id_estado
-inner join categoria C
-on I.id_categoria = C.id_categoria
-inner join cuenta TC
-on I.id_medioPago = TC.id_cuenta 
-where MONTH(I.fecha) = m AND YEAR(I.fecha) = y and I.id_medioPago = c;
-
-
+begin
+    select I.id_Item, I.nombre, I.precio, I.detalle, I.fecha, E.nombre "id_estado", C.nombre "id_categoria", TC.nombre "id_medioPago"
+    from item I 
+    inner join estado E 
+    on I.id_estado = E.id_estado
+    inner join categoria C
+    on I.id_categoria = C.id_categoria
+    inner join cuenta TC
+    on I.id_medioPago = TC.id_cuenta
+    where MONTH(I.fecha) = m AND YEAR(I.fecha) = y and I.id_medioPago = c order by I.fecha desc Limit 31;
+end;
 
 -- Tipo Cuentas
 DROP PROCEDURE IF EXISTS SP_TipoCuenta_List;
@@ -239,5 +234,15 @@ select * from TipoCuenta;
 DROP PROCEDURE IF EXISTS SP_TipoMoneda_List;
 CREATE PROCEDURE SP_TipoMoneda_List()
 select * from TipoMoneda;
+
+DROP PROCEDURE IF EXISTS SP_Cuentas_Value;
+create procedure SP_Cuentas_Value(IN idCount int)
+begin
+    select C.valor, C.fecha_ciclo_factura, C.fecha_cierre_facturacion, C.fecha_pago , TM.ticket 
+    from cuenta C
+    inner join  tipomoneda TM
+    on C.id_tipo_moneda = TM.id_moneda
+    where C.id_cuenta = idCount;
+end;
 
 

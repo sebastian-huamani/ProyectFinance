@@ -5,7 +5,7 @@ require_once('template/lateral-nav.php');
 
 <div class="menu-superior-cuentas">
     <div class="menu-option-left">
-        <p class="menu-card-name" id="nombre-cuenta">Nombre Tarjeta Tarjeta Tarjeta</p>
+        <p class="menu-card-name" id="nombre-cuenta">Selecciona una de tus Cuentas</p>
     </div>
     <div class="menu-option-right">
         <button class="menu-option" id="edit-count" href="">Modificar</button>
@@ -31,7 +31,7 @@ require_once('template/lateral-nav.php');
                             <p class="tipo-ic"> <span class="entidad-ic">Scotiabank : </span>credito</p>
                         </div>
                     </div>
-                </div> -->
+                </div> -->  
 
             </div>
         </div>
@@ -41,7 +41,7 @@ require_once('template/lateral-nav.php');
         <div class="item">
             <div class="info-big">
                 <ul id="card-info">
-                    <li>Id Producto: </li>
+                    <!-- <li>Id Producto: </li>
                     <li>nombre: </li>
                     <li>precio: </li>
                     <li>detalle: </li>
@@ -49,9 +49,14 @@ require_once('template/lateral-nav.php');
                     <li>Ingreso / Egreso: </li>
                     <li>Tipo Estado: </li>
                     <li>Tipo Categoria: </li>
-                    <li>Medio de Pago</li>
+                    <li>Medio de Pago</li> -->
                 </ul>
-                <ul id="card-item-info">
+                <ul id="item-info-box">
+
+                </ul>
+
+                
+                <!-- <ul id="card-item-info">
                     <li>Id Cuenta: </li>
                     <li>nombre: </li>
                     <li>valor: </li>
@@ -61,7 +66,7 @@ require_once('template/lateral-nav.php');
                     <li>fecha creacion: </li>
                     <li>tipo Cuenta: </li>
                     <li>tipo moneda: </li>
-                </ul>
+                </ul> -->
             </div>
         </div>
         <div class="item">
@@ -128,6 +133,11 @@ require_once('template/lateral-nav.php');
                     </div>
                     <p class="trans-cantidad">99.9</p>
                 </li> -->
+                <div id="image-items">
+                    <hr>
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+
 
             </ul>
         </form>
@@ -180,13 +190,9 @@ require_once('template/lateral-nav.php');
                 <span class="input__label">F. Creacion</span>
             </label>
         </div>
-
     </div>
     
-    <div class="box-info-reverse-t">
-        
-
-
+    <div class="box-info-reverse-t none" >
         <div class="item-input">
             <label class="input">
                 <input class="input__field" name="fciclof" type="date" id="fciclof" placeholder=" " require />
@@ -235,7 +241,7 @@ require_once('template/lateral-nav.php');
 
 
 <script src="js/cuenta.js"></script>
-<script src="js/apex.js"></script>
+<!-- <script src="js/apex.js"></script> -->
 
 <?php
 include_once("template/footer.php");

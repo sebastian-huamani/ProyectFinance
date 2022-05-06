@@ -1,66 +1,58 @@
-var f = new Date();
-var data =  f.getDate() + "/" + (f.getMonth()+ 1) + "/" + f.getFullYear();
-
-
-// CHARTS
-
-
-
 var options1 = {
-    series: [{
+  series: [{
     name: 'Cash Flow',
     data: [1.45, 5.42, 5.9, -0.42, -12.6, -18.1, -18.2, -14.16, -11.1, -6.09, 0.34, 3.88, 13.07,
-        5.8, 2, 7.37, 8.1, 13.57, 15.75, 17.1, 19.8, -27.03, -54.4, -47.2, -43.3, -18.6, -
-        48.6, -41.1, -39.6, -37.6, -29.4, -21.4, -2.4
+      5.8, 2, 7.37, 8.1, 13.57, 15.75, 17.1, 19.8, -27.03, -54.4, -47.2, -43.3, -18.6, -
+      48.6, -41.1, -39.6, -37.6, -29.4, -21.4, -2.4
     ]
-    }],
-    chart: {
-        type: 'bar',
-        height: '155px'
-    },
-    plotOptions: {
+  }],
+  chart: {
+    type: 'bar',
+    height: '155px'
+  },
+  plotOptions: {
     bar: {
-        colors: {
-            ranges: [{
-                from: -100,
-                to: -46,
-                color: '#F15B46'
-            }, {
-                from: -45,
-                to: 0,
-                color: '#FEB019'
-            }]
-        },
-        columnWidth: '80%',
-         }
-    },
-    dataLabels: {
-        enabled: false,
-    },
-    yaxis: {
+      colors: {
+        ranges: [{
+          from: -100,
+          to: -46,
+          color: '#F15B46'
+        }, {
+          from: -45,
+          to: 0,
+          color: '#FEB019'
+        }]
+      },
+      columnWidth: '80%',
+    }
+  },
+  dataLabels: {
+    enabled: false,
+  },
+  yaxis: {
     title: {
-        text: 'Growth',
+      text: 'Growth',
     },
     labels: {
-        formatter: function (y) {
+      formatter: function (y) {
         return y.toFixed(0) + "%";
-        }
+      }
     }
-    },
-    xaxis: {
+  },
+  xaxis: {
     type: 'datetime',
-    categories: [
-        '2011-01-01', '2011-02-01', '2011-03-01', '2011-04-01', '2011-05-01', '2011-06-01',
-        '2011-07-01', '2011-08-01', '2011-09-01', '2011-10-01', '2011-11-01', '2011-12-01',
-        '2012-01-01', '2012-02-01', '2012-03-01', '2012-04-01', '2012-05-01', '2012-06-01',
-        '2012-07-01', '2012-08-01', '2012-09-01', '2012-10-01', '2012-11-01', '2012-12-01',
-        '2013-01-01', '2013-02-01', '2013-03-01', '2013-04-01', '2013-05-01', '2013-06-01',
-        '2013-07-01', '2013-08-01', '2013-09-01'
+    categories: [ 
+      '2011-01-01', '2011-02-01', '2011-03-01', '2011-04-01', '2011-05-01', '2011-06-01',
+      '2011-07-01', '2011-08-01', '2011-09-01', '2011-10-01', '2011-11-01', '2011-12-01',
+      '2012-01-01', '2012-02-01', '2012-03-01', '2012-04-01', '2012-05-01', '2012-06-01',
+      '2012-07-01', '2012-08-01', '2012-09-01', '2012-10-01', '2012-11-01', '2012-12-01',
+      '2013-01-01', '2013-02-01', '2013-03-01', '2013-04-01', '2013-05-01', '2013-06-01',
+      '2013-07-01', '2013-08-01', '2013-09-01'
     ],
     labels: {
-        rotate: -90
+      rotate: -90
     }
-    }
+  }
 };
 
 var chart1 = new ApexCharts(document.querySelector("#column-chart"), options1);
@@ -68,8 +60,10 @@ chart1.render();
 
 
 
+
+
 var options2 = {
-    series: [
+  series: [
     {
       name: 'Bob',
       data: [
@@ -128,7 +122,7 @@ var options2 = {
       ]
     }
   ],
-    chart: {
+  chart: {
     height: '155px',
     type: 'rangeBar'
   },
@@ -152,10 +146,10 @@ var options2 = {
     position: 'top',
     horizontalAlign: 'left'
   }
-  };
+};
 
-  var chart2 = new ApexCharts(document.querySelector("#timeline"), options2);
-  chart2.render();
+var chart2 = new ApexCharts(document.querySelector("#timeline"), options2);
+chart2.render();
 
 
 
@@ -169,12 +163,12 @@ var options2 = {
 var myChart3 = document.getElementById('myChart3').getContext('2d');
 
 var massPopChart = new Chart(myChart3, {
-  type:'doughnut', // doughnut , pie
-  data:{
+  type: 'doughnut', // doughnut , pie
+  data: {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets:[{
-      label:'Population',
-      data:[
+    datasets: [{
+      label: 'Population',
+      data: [
         6175,
         1810,
         1530,
@@ -183,7 +177,7 @@ var massPopChart = new Chart(myChart3, {
         950,
         2001
       ],
-      backgroundColor:[
+      backgroundColor: [
         'rgba(255, 99, 132, 0.6)',
         'rgba(54, 162, 235, 0.6)',
         'rgba(255, 206, 86, 0.6)',
@@ -192,30 +186,30 @@ var massPopChart = new Chart(myChart3, {
         'rgba(255, 159, 64, 0.6)',
         'rgba(255, 99, 132, 0.6)'
       ],
-      borderWidth:3,
-      hoverBorderWidth:0,
-      hoverBorderColor:false,
+      borderWidth: 3,
+      hoverBorderWidth: 0,
+      hoverBorderColor: false,
       hoverOffset: 15
     }]
   },
-  options:{
-    title:{
-      display:false,
-      text:'Largest Cities In Massachusetts',
-      fontSize:25
+  options: {
+    title: {
+      display: false,
+      text: 'Largest Cities In Massachusetts',
+      fontSize: 25
     },
-    legend:{
-      display:false,
-      position:'right',
-      labels:{
-        fontColor:'#000'
+    legend: {
+      display: false,
+      position: 'right',
+      labels: {
+        fontColor: '#000'
       }
     },
     responsive: true,
-    tooltips:{
-      enabled:false
+    tooltips: {
+      enabled: false
     },
-    plugins:{
+    plugins: {
       legend: {
         display: false,
       }

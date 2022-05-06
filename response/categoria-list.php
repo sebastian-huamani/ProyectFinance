@@ -10,9 +10,8 @@
     $json = array();
     while($row = mysqli_fetch_array($result)){
         $json[] = array(
-            
             'id' => $row['id_categoria'],
-            'nombre' => $row['nombre'],
+            'nombre' => $row['nombre']
         );
     }
 

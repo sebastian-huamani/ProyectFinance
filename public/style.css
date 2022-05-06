@@ -196,11 +196,11 @@ input, button{
 }
 #list li{
     margin: 1rem 0;
+    cursor: pointer;
 }
 #list li:hover{
     list-style: disc inside;
 }
-
 .chart{
     position: relative;
     display: -ms-flexbox;
@@ -209,11 +209,7 @@ input, button{
     min-width: 0;
     word-wrap: break-word;
     padding: 0.9rem;
-
 }
-
-
-
 .box-info{
     display: grid;
     grid-template-columns: 22rem;
@@ -391,9 +387,14 @@ input, button{
 }
 .menu-superior-cuentas{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     padding: 0 0 0 0;
-    margin:  0 auto 0.7rem auto;
+    margin: 0 auto 0.7rem auto;
+}
+.menu-option-right{
+    position: absolute;
+    width: 92%;
+    text-align: end;
 }
 
 .cuentas-opciones a{
@@ -443,6 +444,7 @@ input, button{
 .transacciones-cuenta{
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
 
 .transacciones-option{
@@ -461,6 +463,9 @@ input, button{
     justify-content: space-around;
     align-items: end;
     height: 4.1rem;
+}
+.transaccion-item .idItemCuenta{
+    align-self: center;
 }
 .trans-icon{
     margin-bottom: 0.8rem;
@@ -495,22 +500,72 @@ input, button{
     grid-gap: 2rem;
     min-width: 60rem;
 }
+.factura-cuenta .item:nth-child(1) {
+    max-height: 43rem;
+}
 .info-big{
-    padding: 1rem;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-gap: 1rem;
+    grid-template-rows: 10.2rem auto;
     height: 100%;
-    min-height: 100%;
-    max-height: 100%;
 } 
 .info-big ul{
     margin: 0;
 }
 .menu-card-name{
-    font-weight: bold;
     letter-spacing: 0.1rem;
     background-color: #26a69a;
-    padding: 0.3rem;
+    padding: 0.3rem 8rem;
     border-radius: 0.5rem;
-    
+}
+#card-info{
+    /* background-color: var(--tradeGreen); */
+    width: auto;
+    padding: 1.7rem;
+}
+#item-info-box{
+    /* background-color: var(--tradeRed); */
+    width: auto;
+    padding: 1.7rem
+}
+#card-info div,
+#item-info-box div{    
+    width: 90%;
+    margin: 0.7rem auto 0 auto;
+    text-align: start;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-gap: 1rem;
+}
+#item-info-box div{
+    margin-top: 2rem!important;
+    grid-gap: 3rem 1rem!important;
+}
+#item-info-box p{
+    width: 99%;
+    margin: 2rem auto 0 auto;
+}
+
+#image-items{
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #dcdcdc;
+}
+#image-items i{
+    position: absolute;
+    font-size: 3rem;
+    background-color: #fff;
+    padding: 0.5rem;
+}
+#image-items hr{
+    position: relative;
+    width: 90%;
+}
+.trans-cantidad{
+    font-size: 1.4rem;
 }
 
 /* ACCIONES */
@@ -618,6 +673,8 @@ input, button{
     width: 70%;
     margin: 5rem auto 0 auto;
 }
+
+
 
 /* CUANTAS INFORMACION */
 /* .cuentas-info-card{

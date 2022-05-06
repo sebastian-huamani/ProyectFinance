@@ -15,7 +15,6 @@
             'precio' => $row['precio'],
             'detalle' => $row['detalle'],
             'fecha' => $row['fecha'],
-            'modalidad' => $row['id_ingesoEgreso'],
             'estado' => $row['id_estado'],
             'categoria' => $row['id_categoria'],
             'cuenta' => $row['id_medioPago']

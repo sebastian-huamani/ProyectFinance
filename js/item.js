@@ -17,7 +17,6 @@ $(document).ready(function(){
         $('#precio').val(" ");
         $('#detalle').val(" ");
         $('#fecha').val(" ");   
-        $('#modalidades').val(" ");
         $('#estados').val(" ");
         $('#categorias').val(" ");
         $('#cuentas').val(" ");
@@ -111,7 +110,7 @@ $(document).ready(function(){
                 </li>`;
                 items.forEach(item => {
                     template += `
-                    <li id="${item.id}" class="${item.modalidad}">
+                    <li id="${item.id}">
                         <div>
                             <a href="#">${item.nombre}</a>
                         </div>
@@ -149,7 +148,6 @@ $(document).ready(function(){
             precio : $('#precio').val(),
             detalle : $('#detalle').val(),
             fecha : $('#fecha').val(),
-            modalidad :  $('#modalidades').val(),
             estado :  $('#estados').val(),
             categoria :  $('#categorias').val(),
             cuenta :  $('#cuentas').val()
@@ -184,7 +182,6 @@ $(document).ready(function(){
             $('#precio').val(Data.precio);
             $('#detalle').val(Data.detalle);
             $('#fecha').val(Data.fecha);
-            $('#modalidades').val(Data.modalidad);
             $('#estados').val(Data.estado);
             $('#categorias').val(Data.categoria);
             $('#cuentas').val(Data.cuenta);

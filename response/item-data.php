@@ -1,14 +1,16 @@
 <?php 
     include_once('../db/database.php');
 
-    if(isset($_POST['id'])){
+    if(isset($_POST['Item'])){
 
-        $id = $_POST['id'];
-        $query = "call SP_Item_Buscar_id($id)";
+        $id = $_POST['Item'];
+        $count = $_POST['count'];
+
+        $query = "call SP_Item_Buscar_id($id, $count)";
         $result = mysqli_query($conn, $query);
 
         if(!$result){
-            die("Failed Connection");
+            die("Failed Connection".  mysqli_error($conn));
         }
 
         $json = array();
@@ -19,7 +21,6 @@
                 'precio' => $row['precio'],
                 'detalle' => $row['detalle'],
                 'fecha' => $row['fecha'],
-                'modalidad' => $row['id_ingesoEgreso'],
                 'estado' => $row['id_estado'],
                 'categoria' => $row['id_categoria'],
                 'cuenta' => $row['id_medioPago']

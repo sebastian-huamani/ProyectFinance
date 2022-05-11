@@ -1,12 +1,11 @@
 <?php 
     include_once('../db/database.php');
-
     if(isset($_POST['Item'])){
 
         $id = $_POST['Item'];
         $count = $_POST['count'];
 
-        $query = "call SP_Item_Buscar_id($id, $count)";
+        $query = "call SP_Item_Buscar_Edit($id, $count)";
         $result = mysqli_query($conn, $query);
 
         if(!$result){

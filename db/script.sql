@@ -10,7 +10,8 @@ create table  Estado(
 
 create table Categoria(
     id_categoria int auto_increment not null,
-    nombre varchar(50),
+    nombre varchar(50) not null,
+    uso int null, 
     primary key(id_categoria)
 );
 
@@ -32,6 +33,7 @@ create table TipoCuenta(
 create table Cuenta(
     id_cuenta int auto_increment not null,
     nombre varchar(60) not null,
+    Credito decimal(8,2) null
     valor decimal(10, 2) not null,
     fecha_ciclo_factura date null,
     fecha_cierre_facturacion date null,
@@ -76,6 +78,7 @@ create table ItemInversion(
     id_Cuenta int not null,
     primary key(id_ItemInversion)
 );
+
 
 alter table Cuenta add constraint fk_cuenta_tipocuenta foreign key(id_tipo_cuenta) references TipoCuenta(id_tipocuenta);
 alter table Cuenta add constraint fk_cuenta_tipomoneda foreign key(id_tipo_moneda) references TipoMoneda(id_moneda);
@@ -127,22 +130,22 @@ insert into ItemInversion(open,high,low,close,fecha,id_Cuenta) values
 insert into cuenta(nombre,  valor, fecha_ciclo_factura, fecha_cierre_facturacion, fecha_pago, fecha_creacion, id_tipo_cuenta, id_tipo_moneda) values ('cuenta principa', 930.00, null,null,null,'2022-01-08', 1,1)
 
 
-
 -- prcedure item
 DROP PROCEDURE IF EXISTS `SP_Item_Listar`;
 create procedure SP_Item_Listar()
-select I.id_Item, I.nombre, I.precio, I.detalle, I.fecha, E.nombre "id_estado", C.nombre "id_categoria", TC.nombre "id_medioPago"
-from item I 
-inner join estado E
-on I.id_estado = E.id_estado
-inner join categoria C
-on I.id_categoria = C.id_categoria
-inner join cuenta TC
-on I.id_medioPago = TC.id_cuenta;
-
+BEGIN
+    select I.id_Item, I.nombre, I.precio, I.detalle, I.fecha, E.nombre "id_estado", C.nombre "id_categoria", TC.nombre "id_medioPago"
+    from item I 
+    inner join estado E
+    on I.id_estado = E.id_estado
+    inner join categoria C
+    on I.id_categoria = C.id_categoria
+    inner join cuenta TC
+    on I.id_medioPago = TC.id_cuenta order BY fecha desc;
+END
 
 DROP PROCEDURE IF EXISTS SP_Item_Buscar_id;
-create procedure SP_Item_Buscar_id( IN id int,IN cuenta int)
+create procedure SP_Item_Buscar_id( IN id int,IN cuenta int)    
 begin 
     select  I.id_Item, I.nombre, I.precio, I.detalle, I.fecha, E.nombre "id_estado", C.nombre "id_categoria", I.id_medioPago
     from item I 
@@ -153,18 +156,38 @@ begin
     where I.id_Item = id and I.id_medioPago = cuenta;
 end;
 
+DROP PROCEDURE IF EXISTS SP_Item_Buscar_Edit;
+create procedure SP_Item_Buscar_Edit( IN id int,IN cuenta int)
+begin 
+    select * from item where id_Item = id and id_medioPago = cuenta;
+end;
+
 
 DROP PROCEDURE IF EXISTS SP_Item_Insertar;
-create procedure SP_Item_Insertar(nom varchar(50), pre int, detall varchar(250), fecha date, esta int, cat int, medPag int)
-insert into item(nombre, precio,detalle,fecha, id_estado, id_categoria, id_medioPago) values (nom, pre, detall, fecha, esta, cat, medPag);
+create procedure SP_Item_Insertar(nom varchar(50), pre decimal(8,2), detall varchar(250), fecha date, esta int, cat int, medPag int)
+begin
+    insert into item(nombre, precio,detalle,fecha, id_estado, id_categoria, id_medioPago) values (nom, pre, detall, fecha, esta, cat, medPag);
+
+    UPDATE cuenta set valor = valor + pre where id_cuenta = medPag;
+
+    UPDATE categoria set uso = +1 where id_categoria = cat;
+end//
 
 DROP PROCEDURE IF EXISTS SP_Item_Delete;
 create procedure SP_Item_Delete(id int)
-delete from item where id_Item = id;
+begin
+    delete from item where id_Item = id;
+end;
 
 DROP PROCEDURE IF EXISTS SP_Item_Edit;
-create procedure SP_Item_Edit(id int, nom varchar(50), pre int, detall varchar(250), fecha date,  esta int, cat int, medPag int)
-UPDATE item SET nombre = nom, precio = pre, detalle = detall, fecha = fecha,  id_estado = esta, id_categoria = cat, id_medioPago = medPag WHERE id_Item = id;
+create procedure SP_Item_Edit(id int, nom varchar(50),pre decimal(8,2), detall varchar(250), fecha date,  esta int, cat int, medPag int, oldValue decimal(8,2))
+begin
+    UPDATE cuenta set valor = valor - oldValue where id_cuenta = medPag;
+
+    UPDATE item SET nombre = nom, precio = pre, detalle = detall, fecha = fecha,  id_estado = esta, id_categoria = cat WHERE id_Item = id;
+
+    UPDATE cuenta set valor = valor + pre where id_cuenta = medPag;
+end;
 
 -- prcedure label
 DROP PROCEDURE IF EXISTS SP_Label_Listar;
@@ -204,7 +227,9 @@ delete from cuenta where id_cuenta = id;
 
 DROP PROCEDURE IF EXISTS SP_Cuenta_Edit;
 CREATE PROCEDURE SP_Cuenta_Edit(id int, n varchar(50), val decimal ,fciclof date , fcierref date ,fpago date , fcreacion date ,cuenta int  , moneda int , ban varchar(50))
-update cuenta set nombre = n , valor =val,fecha_ciclo_factura = fciclof,fecha_cierre_facturacion = fcierref, fecha_pago = fcreacion, fecha_creacion = fcreacion,id_tipo_cuenta = cuenta ,id_tipo_moneda = moneda ,banco = ban where id_cuenta = id;
+begin
+    update cuenta set nombre = n , valor =val,fecha_ciclo_factura = fciclof,fecha_cierre_facturacion = fcierref, fecha_pago = fpago, fecha_creacion = fcreacion,id_tipo_cuenta = cuenta ,id_tipo_moneda = moneda ,banco = ban where id_cuenta = id;
+end//
 
 DROP PROCEDURE IF EXISTS SP_Cuenta_Buscar_id;
 create procedure SP_Cuenta_Buscar_id(id int)
@@ -246,3 +271,19 @@ begin
 end;
 
 
+-- DROP PROCEDURE IF EXISTS SP_Prueba1;
+-- create procedure SP_Prueba1()
+-- begin
+--     declare can int;
+--     select sum(precio) from item where MONTH(fecha) = MONTH(now()) and precio > 0 and id_medioPago = 1;
+
+--     select sum(precio) from item where MONTH(fecha) = MONTH(now()) and precio < 0 and id_medioPago = 1;
+-- end//
+
+-- credit totol
+
+-- select sum(valor), id_tipo_moneda from cuenta where id_tipo_cuenta = 2 and id_tipo_moneda = 1;   
+-- select * from item where precio > 0;
+
+
+-- update categoria set uso = +1 where id_categoria = 110;

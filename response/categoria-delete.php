@@ -10,7 +10,12 @@
         if(!$result){
             die("Query Failed");
         }
-        echo "Task Deleted Successfuly";
+        $json['res'] = "OK";
+        
+    }else {
+        $json['res'] = "NO";
     }
     
+    $jsonStr = json_encode($json);
+    echo $jsonStr;
 ?>

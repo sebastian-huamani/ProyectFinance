@@ -1,88 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="public/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- cdn jquery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- cdn apexcharts .JS -->
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <!-- cdn de chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
-</head>
-<body>
-    
-    <div class="lateral-nav">
-        <div class="button-nav">
-            <button class="btn" id="btn-menu" ><i class="fa-solid fa-bars-progress"></i></button>
-        </div>
-        <ul class="ln-list">
-            <li>
-                <a href="#">
-                    <i class="fa-solid fa-house-chimney"></i>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="fa-solid fa-user"></i>
-                </a>
-            </li>
-            <hr>
-            
-            <li>
-                <a href="categoria.html">
-                    <i class="fa-solid fa-tags"></i>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="fa-solid fa-file-lines"></i>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="fa-solid fa-address-card"></i>
-                </a>
-            </li>
-            <hr>
+// if (response == "OK") {
+    //     const Toast = Swal.mixin({
+    //         toast: true,
+    //         position: 'top-end',
+    //         showConfirmButton: false,
+    //         timer: 3000,
+    //         timerProgressBar: true,
+    //         didOpen: (toast) => {
+    //             toast.addEventListener('mouseenter', Swal.stopTimer)
+    //             toast.addEventListener('mouseleave', Swal.resumeTimer)
+    //         }
+    //     });
 
-            <li>
-                <a href="#">
-                    <i class="fa-solid fa-tags"></i>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="fa-solid fa-tags"></i>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="fa-solid fa-tags"></i>
-                </a>
-            </li>
-        </ul>
-    </div>
+    //     Toast.fire({
+    //         icon: 'success',
+    //         title: 'Categoria Agregada!'
+    //     });
+    // } else {
+    //     const Toast = Swal.mixin({
+    //         toast: true,
+    //         position: 'top-end',
+    //         showConfirmButton: false,
+    //         timer: 4500,
+    //         timerProgressBar: true,
+    //         didOpen: (toast) => {
+    //             toast.addEventListener('mouseenter', Swal.stopTimer)
+    //             toast.addEventListener('mouseleave', Swal.resumeTimer)
+    //         }
+    //     });
 
-    <section class="box-dashboarch">
-        
-        <div class="dashboard">
-
-          
-
-        </div>
-
-    </section>
-
-
-
-
-    <script src="apex.js"></script>
-    <!-- <script src="script.js"></script> -->
-</body>
-</html>
+    //     Toast.fire({
+    //         icon: 'error',
+    //         title: 'Oops...',
+    //         text: 'Campo Vacio, Debes LLenarlo',
+    //     });
+    // }

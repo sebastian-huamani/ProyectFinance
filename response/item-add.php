@@ -10,7 +10,7 @@
         $estado = $_POST['estado'];
         $categoria = $_POST['categoria'];
         $cuenta = $_POST['cuenta'];
-
+        
         $query = "Call SP_Item_Insertar('$nombre', $precio, '$detalle', '$fecha', $estado, $categoria, $cuenta)";
 
         $result = mysqli_query($conn, $query);

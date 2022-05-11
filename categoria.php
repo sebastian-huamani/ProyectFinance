@@ -17,7 +17,7 @@
         </div>
 
         <div class="send">
-            <button type="submit" class="" id="save-categoria">Save</button>
+            <button type="submit" class="" id="save-categoria">Guardar</button>
         </div>
     </form>
 
@@ -25,19 +25,6 @@
         <div class="box-item-categoria">
             <h4 class="">Categorias Creadas</h4>
             <ul id="categoria-list-seccion">
-                <!-- <li>
-                    <div>
-                        <a href="#">Servicio Luz</a>
-                    </div>
-                    <div class="item-seccion">  
-                        <button id="edit-categoria">
-                            <i class="fa-solid fa-pen"></i>
-                        </button>
-                        <button id="delete-categoria">
-                            <i class="fa-solid fa-trash-can"></i>
-                        </button>
-                    </div>
-                </li> -->
                 
             </ul>
         </div>
@@ -51,3 +38,4 @@
 <?php 
     include_once("template/footer.php")
 ?>
+<!-- Cleudis12#4379 -->

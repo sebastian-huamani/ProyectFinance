@@ -129,9 +129,10 @@
 
 
 
-
-    <script src="js/apex.js"></script>
-    <script src="js/candletick.js"></script>
+            
+        <script src="js/home.js"></script>
+        <script src="js/apex.js"></script>
+    <!-- <script src="js/candletick.js"></script> -->
     <!-- <script src="script.js"></script> -->
 
 <?php 

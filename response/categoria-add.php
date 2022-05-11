@@ -1,7 +1,10 @@
 <?php 
     include_once('../db/database.php');
 
-    if(isset($_POST['name'])){
+
+    $name = trim($_POST['name']);
+
+    if(isset($name) and $name != ""){
 
         $categoria = $_POST['name'];
 
@@ -10,9 +13,11 @@
 
         if(!$result){
             die('Query Failed' .mysqli_error($conn));
-        } else{
-            echo 'Added Successfuly';
-        }
+        } 
+        $json['res'] = "OK";
+    } else {
+        $json['res'] = "NO";
     }
+    $jsonStr = json_encode($json);
+    echo $jsonStr;
 ?>
-    

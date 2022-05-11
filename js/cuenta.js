@@ -12,42 +12,42 @@ $(document).ready(function () {
 
     window.Apex = {
         tooltip: {
-          theme: 'dark'
+            theme: 'dark'
         }
     };
 
-    function daysInMonth (month, year, Arr) { 
-        let a = new Date(year, month, 0).getDate(); 
+    function daysInMonth(month, year, Arr) {
+        let a = new Date(year, month, 0).getDate();
         let zero = ""
 
-        for (let i = 1; i < a +1; i++) {
-            if(i < 10){ zero = "0"} else { zero = "" }
+        for (let i = 1; i < a + 1; i++) {
+            if (i < 10) { zero = "0" } else { zero = "" }
             let item = {
-                "fecha" : `${year}-${month}-${zero + i}`,
-                "valor" : 0
+                "fecha": `${year}-${month}-${zero + i}`,
+                "valor": 0
             }
             DataGraphic.push(item);
         }
 
         for (let index = 0; index < Object.keys(Arr).length; index++) {
             var search = DataGraphic.findIndex(p => p.fecha === Object.keys(Arr)[index]);
-            if(search != -1){
+            if (search != -1) {
                 DataGraphic[search].valor = Object.values(Arr)[index];
             }
         }
 
-        for(let index = 0; index < DataGraphic.length; index++) {
+        for (let index = 0; index < DataGraphic.length; index++) {
             dateDGraphic.push(DataGraphic[index].fecha);
             valueDGraphic.push(DataGraphic[index].valor);
         }
     }
 
-    function setValues(Arr){
+    function setValues(Arr) { 
         let c = Object.values(Arr);
         for (let i = 0; i < c.length; i++) {
             let pos = dateDGraphic.findIndex(elem => elem === c[i].fecha)
             if (pos != 0) {
-                valueDGraphic[pos] += c[i].valor;  
+                valueDGraphic[pos] += c[i].valor;
             }
         }
     }
@@ -134,9 +134,69 @@ $(document).ready(function () {
         $(elemet).val(y + "-" + m + "-" + d);
     }
 
+    var options1 = {
+        series: [{
+            name: 'Cash Flow ',
+            stacked: true,
+            width: '100%',
+            data: []
+        }],
+        chart: {
+            type: 'bar',
+            height: '155px'
+        },
+        noData: {
+            text: 'Select a date...',
+        },
+        plotOptions: {
+            bar: {
+                colors: {
+                    ranges: [{
+                        from: -100,
+                        to: -46,
+                        color: '#F15B46'
+                    }, {
+                        from: -45,
+                        to: 0,
+                        color: '#FEB019'
+                    }]
+                },
+                columnWidth: '80%',
+                endingShape: 'rounded'
+            }
+        },
+        dataLabels: {
+            enabled: false,
+        },
+        yaxis: {
+            title: {
+            },
+            labels: {
+                // formatter: function (y) {
+                //     return y.toFixed(0) + "%";
+                // }
+            }
+        },
+        xaxis: {
+            type: 'datetime',
+            categories: dateDGraphic,
+            labels: {
+                rotate: -90,
+                format: 'dd'
+            }
+        },
+        tooltip: {
+            shared: true,
+            intersect: false
+        }
+    };
+
+    var chart1 = new ApexCharts(document.querySelector("#column-chart"), options1);
+    chart1.render();
+
     $('#form-count').submit(function (e) {
-        
-        if(Object.keys(DataGraphic).length > 0){
+
+        if (Object.keys(DataGraphic).length > 0) {
             DataGraphic.splice(0, Object.keys(DataGraphic).length);
             valueDGraphic.splice(0, Object.keys(valueDGraphic).length);
             dateDGraphic.splice(0, Object.keys(dateDGraphic).length);
@@ -148,12 +208,13 @@ $(document).ready(function () {
             count: $('#cuentaId').val()
         };
         $.post('response/cuenta-items.php', postData, function (response) {
-            let Items = JSON.parse(response);
-            let template = "";
-            let temValues = [];
+            try {
+                let Items = JSON.parse(response);
+                let template = "";
+                let temValues = [];
 
-            Items.forEach(item => {
-                template += `
+                Items.forEach(item => {
+                    template += `
                 <li class="transaccion-item" id="${item.id}">
                     <div class="idItemCuenta">
                         <i class="fa-solid fa-angle-left"></i>
@@ -168,78 +229,43 @@ $(document).ready(function () {
                     <p class="trans-cantidad">${item.precio}</p>
                 </li>`;
 
-                let itemVal = {
-                    "fecha" : `${item.fecha}`,
-                    "valor" : Number(item.precio)
-                }
-                temValues.push(itemVal);
-            });
-            
-            daysInMonth(postData.month, postData.year, temValues);
-            setValues(temValues);
-
-            var options1 = {
-                series: [{
-                    name: 'Cash Flow ',
-                    stacked: true,
-                    width: '100%',
-                    data: []
-                }],
-                chart: {
-                    type: 'bar',
-                    height: '155px'
-                },
-                plotOptions: {
-                    bar: {
-                        colors: {
-                            ranges: [{
-                                from: -100,
-                                to: -46,
-                                color: '#F15B46'
-                            }, {
-                                from: -45,
-                                to: 0,
-                                color: '#FEB019'
-                            }]
-                        },
-                        columnWidth: '80%',
-                        endingShape: 'rounded'
+                    let itemVal = {
+                        "fecha": `${item.fecha}`,
+                        "valor": Number(item.precio)
                     }
-                },
-                dataLabels: {
-                    enabled: false,
-                },
-                yaxis: {
-                    title: {
-                    },
-                    labels: {
-                        // formatter: function (y) {
-                        //     return y.toFixed(0) + "%";
-                        // }
+                    temValues.push(itemVal);
+                });
+
+                daysInMonth(postData.month, postData.year, temValues);
+                setValues(temValues);
+
+               
+
+                chart1.updateSeries([{
+                    data: valueDGraphic
+                }]);
+
+                $('#list').html(template);
+            } catch (error) {
+
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 4500,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
                     }
-                },  
-                xaxis: {
-                    type: 'datetime',
-                    categories: dateDGraphic,
-                    labels: {
-                        rotate: -90,
-                        format: 'dd'
-                    }
-                },
-                tooltip: {
-                    shared: true,
-                    intersect: false
-                }
-            };
+                })
 
-            var chart1 = new ApexCharts(document.querySelector("#column-chart"), options1);
-            chart1.render();
-
-            chart1.updateSeries([{
-                data :valueDGraphic
-            }]);
-
-            $('#list').html(template);
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Selecciona una cuenta y filtra por la fecha !',
+                })
+            }
         });
         e.preventDefault();
     });
@@ -262,9 +288,15 @@ $(document).ready(function () {
             $('#crear-cuenta').text('Ir a Home')
             setDateToDay("#fcreacion");
             button_moving = true;
+            $('#delete-count').addClass('none');
+            $('#nombre-cuenta').addClass('none');
+
         } else {
             $('#crear-cuenta').text('Crear Nueva Cuenta');
             button_moving = false;
+            $('#delete-count').removeClass('none');
+            $('#nombre-cuenta').removeClass('none');
+
             Limpiar();
         }
     });
@@ -273,11 +305,15 @@ $(document).ready(function () {
         let elemet = $(this)[0];
         let Item = $(elemet).attr('id');
         let count = $('#cuentaId').val();
+        $('.transaccion-item').removeClass("background-selected");
+        $("#" + Item).addClass("background-selected");
+
+
         $.post('response/item-data.php', { Item, count }, function (response) {
             let items = JSON.parse(response);
 
             let template = `
-            <p>Informacion Movimiento</p>
+            <p>Informacion Movimiento: </p>
             <div>
                 <li>nombre: ${items.nombre} </li>
                 <li>Valor: ${items.precio} </li>
@@ -293,6 +329,7 @@ $(document).ready(function () {
 
     $('#form-cuenta').submit(function (e) {
         const postData = {
+            id: $('#idCuenta').val(),
             nombre: $('#nombre').val(),
             valor: $('#valor').val(),
             fciclof: $('#fciclof').val(),
@@ -327,6 +364,7 @@ $(document).ready(function () {
         let id = $('#cuentaId').val();
         $.post('response/cuenta-data.php', { id }, function (response) {
             let Data = JSON.parse(response);
+            $('#idCuenta').val(Data.id);
             $('#nombre').val(Data.nombre);
             $('#valor').val(Data.valor);
             $('#fciclof').val(Data.fechaCiclof);
@@ -345,13 +383,22 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '.btn-ic', function () {
+
+        chart1.updateSeries([{
+            data: []
+        }]);
+
         let elemet = $(this)[0].parentElement.parentElement.parentElement;
         let id = $(elemet).attr('id');
         $('#cuentaId').val(id);
+        $(".item").removeClass("background-selected");
+        $("#" + id).addClass("background-selected");
 
         let elemet2 = $(this)[0].parentElement.parentElement.parentElement;
         let id2 = $(elemet2).attr('id');
         c = "#" + id2 + " .item-card .bin-ic";
+
+        
         let nombre = $(c).text();
         let template = `
                 <div id="image-items">
@@ -363,7 +410,7 @@ $(document).ready(function () {
         $('#item-info-box').html("");
 
         $.post('response/cuenta-data-count.php', { id }, function (response) {
-            let items = JSON.parse(response);;
+            let items = JSON.parse(response);
             let template = `
                 <p> Informacion Tarjeta</p>
                 <div>
@@ -381,7 +428,5 @@ $(document).ready(function () {
             $("#card-info").html(template);
         });
     });
-
-
 
 });

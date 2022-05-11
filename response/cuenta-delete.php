@@ -8,7 +8,7 @@
         $result = mysqli_query($conn, $query);
 
         if(!$result){
-            die("Query Failed");
+            die("Query Failed" . mysqli_error($conn));
         }
         echo "Task Deleted Successfuly";
     }

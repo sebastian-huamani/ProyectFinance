@@ -318,7 +318,7 @@ button {
 
 .send button {
     border-radius: 0.6rem;
-    width: 10rem;
+    /* width: 10rem; */
     background: #96e3b3;
     padding: 1rem 3rem;
     border: none;
@@ -712,10 +712,6 @@ button {
     border-radius: 0.4rem;
 }
 
-.item-seccion {
-    /* text-align: end; */
-}
-
 .item-seccion button {
     margin: 0.3rem;
     background: none;
@@ -847,6 +843,7 @@ button {
 } */
 .swal2-title {
     font-size: 1.3rem !important;
+    font-weight: normal!important;
 }
 
 .swal2-html-container {
@@ -855,4 +852,65 @@ button {
 
 .swal2-styled {
     font-size: 1.2rem !important;
+}
+.swal2-container.swal2-backdrop-show{
+    background:  none!important;
+}
+ 
+.swal2-container.swal2-center > .swal2-popup {
+    background: rgba(54, 70, 93, 0.99);
+}
+
+/* LOG */
+.box-login{
+    width: 100%;
+    height: 100vh;
+    background-color: var(--bgone);   
+    display: flex;
+    align-items: center; 
+}
+.box-input{
+    width: 50rem;
+    height: 25rem;
+    background-color: #ffffff;
+    margin: -10rem auto 0 auto;
+    border-radius: 0.7rem;
+    text-align: center;
+    padding: 0.7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#form-login{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 50rem;
+}
+#form-login p{
+    font-size: 2rem;
+    font-weight: 400;
+}
+#form-login > div {
+    margin-top: 1rem!important;
+}
+#form-login .send{
+    margin: 2rem 0 0 0!important ;
+}
+#form-login a{
+    position: absolute;
+    top: -2rem;
+    right: 0;
+    font-size: 1.3rem;
+}
+a .fa-user{
+    color: var(--tradeGreen);
+}
+.login-redirect{
+    position:absolute;
+    bottom:  5rem;
+}
+.login-redirect a{
+    text-decoration: underline;
+    color: var(--tradeGreen);
 }

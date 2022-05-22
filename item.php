@@ -1,6 +1,7 @@
 <?php
-require_once('template/nav.php');
-require_once('template/lateral-nav.php');
+    require_once('controller/user/session.php');
+    require_once('template/nav.php');
+    require_once('template/lateral-nav.php');
 ?>
 
 <div class="move-scene">
@@ -42,13 +43,6 @@ require_once('template/lateral-nav.php');
         </div>
         <div class="box-info-reverse-t">
 
-            <div class="item-input">
-                <select name="estado" id="estados" class="option-form" require>
-
-                    <!-- <option value="a">a</option>
-                    <option value="b">b</option> -->
-                </select>
-            </div>
             <div class="item-input">
                 <select name="categoria" id="categorias" class="option-form" require>
 
@@ -112,7 +106,7 @@ require_once('template/lateral-nav.php');
 
 
 
-<script src="js/item.js"></script>
+<script src="public/js/item.js"></script>
 <?php
 include_once("template/footer.php");
 ?>

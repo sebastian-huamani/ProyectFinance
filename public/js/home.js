@@ -18,11 +18,11 @@ $(document).ready(function () {
         series: [
             {
                 name: "Day Time",
-                data: trigoSeries(52, 20)
+                data: trigoSeries(31, 20)
             },
             {
                 name: "Night Time",
-                data: trigoSeries(52, 27)
+                data: trigoSeries(31, 11)
             },
         ],
         title: {
@@ -93,13 +93,12 @@ $(document).ready(function () {
     //         ifr.style.height = ifr.contentDocument.body.scrollHeight + 20 + 'px';
     //     }
     // });
-
+    
     function trigoSeries(cnt, strength) {
         var data = [];
         for (var i = 0; i < cnt; i++) {
             data.push((Math.sin(i / strength) * (i / strength) + i / strength+1) * (strength*2));
         }
-      
         console.log(data);
         return data;
       }

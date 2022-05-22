@@ -1,6 +1,8 @@
 <?php
     include_once('../db/database.php');
-    $query = "Call SP_Cuenta_List()";
+    session_start();
+    $session_user = $_SESSION['session_user'];
+    $query = "Call SP_Cuenta_List($session_user)";
     $result = mysqli_query($conn, $query);
 
     if(!$result){
@@ -13,7 +15,6 @@
             'id' => $row['id_cuenta'],
             'nombre' => $row['nombre'],
             'valor' => $row['valor'],
-            'fechaCiclof' => $row['fecha_ciclo_factura'],
             'fechaCierref' => $row['fecha_cierre_facturacion'],
             'fechaPgo' => $row['fecha_pago'],
             'creacionF' => $row['fecha_creacion'],

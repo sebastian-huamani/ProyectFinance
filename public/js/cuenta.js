@@ -40,13 +40,14 @@ $(document).ready(function () {
             dateDGraphic.push(DataGraphic[index].fecha);
             valueDGraphic.push(DataGraphic[index].valor);
         }
+        
     }
 
-    function setValues(Arr) { 
+    function setValues(Arr) {
         let c = Object.values(Arr);
         for (let i = 0; i < c.length; i++) {
-            let pos = dateDGraphic.findIndex(elem => elem === c[i].fecha)
-            if (pos != 0) {
+            let pos = dateDGraphic.findIndex(elem => elem === c[i].fecha);
+            if (pos != -1) {
                 valueDGraphic[pos] += c[i].valor;
             }
         }
@@ -97,7 +98,6 @@ $(document).ready(function () {
                         <div class="item-card">
                             <div class="footer-ic">
                                 <p class="fecha-ic">fecha creacion: ${item.creacionF}</p>
-                                <button type="submit" class="btn-ic" id="informacion-cuenta">Informacion</button>
                             </div>
                             <p class="bin-ic" id="bin-ic">${item.nombre}</p>
                             <div class="footer-ic">
@@ -115,7 +115,6 @@ $(document).ready(function () {
     function Limpiar() {
         $('#nombre').val(" ");
         $('#valor').val(" ");
-        $('#fciclof').val(" ");
         $('#fcierref').val(" ");
         $('#fpago').val(" ");
         $('#fcreacion').val(" ");
@@ -215,42 +214,45 @@ $(document).ready(function () {
 
                 Items.forEach(item => {
                     template += `
-                <li class="transaccion-item" id="${item.id}">
-                    <div class="idItemCuenta">
-                        <i class="fa-solid fa-angle-left"></i>
-                    </div>
-                    <div class="trans-icon">
-                        <i class="fa-regular fa-paper-plane"></i>
-                    </div>
-                    <div class="trans-info">
-                        <p class="trans-descripcion">${item.nombre}</p>
-                        <p class="trans-fecha">${item.fecha}</p>
-                    </div>
-                    <p class="trans-cantidad">${item.precio}</p>
-                </li>`;
-
+                    <li class="transaccion-item" id="${item.id}">
+                        <div class="idItemCuenta">
+                            <i class="fa-solid fa-angle-left"></i>
+                        </div>
+                        <div class="trans-icon">
+                            <i class="fa-regular fa-paper-plane"></i>
+                        </div>
+                        <div class="trans-info">
+                            <p class="trans-descripcion">${item.nombre}</p>
+                            <p class="trans-fecha">${item.fecha}</p>
+                        </div>
+                        <p class="trans-cantidad">${item.precio}</p>
+                    </li>`;
+                    
                     let itemVal = {
                         "fecha": `${item.fecha}`,
                         "valor": Number(item.precio)
                     }
                     temValues.push(itemVal);
                 });
-
+                
                 daysInMonth(postData.month, postData.year, temValues);
                 setValues(temValues);
-
-               
-
+                
+                
                 chart1.updateSeries([{
                     data: valueDGraphic
                 }]);
 
+                console.log(DataGraphic);
+                console.log(valueDGraphic);
+                console.log(dateDGraphic);
+                
                 $('#list').html(template);
             } catch (error) {
 
                 const Toast = Swal.mixin({
                     toast: true,
-                    position: 'top-end',
+                    position: 'bottom-end',
                     showConfirmButton: false,
                     timer: 4500,
                     timerProgressBar: true,
@@ -278,26 +280,6 @@ $(document).ready(function () {
             $('.box-info-reverse-t').removeClass('none');
         } else {
             $('.box-info-reverse-t').addClass('none');
-        }
-    });
-
-    $('#crear-cuenta').on('click', function () {
-        $('#Home').toggleClass('none');
-        $('#form-cuenta').toggleClass('none');
-        if (button_moving == false) {
-            $('#crear-cuenta').text('Ir a Home')
-            setDateToDay("#fcreacion");
-            button_moving = true;
-            $('#delete-count').addClass('none');
-            $('#nombre-cuenta').addClass('none');
-
-        } else {
-            $('#crear-cuenta').text('Crear Nueva Cuenta');
-            button_moving = false;
-            $('#delete-count').removeClass('none');
-            $('#nombre-cuenta').removeClass('none');
-
-            Limpiar();
         }
     });
 
@@ -332,7 +314,6 @@ $(document).ready(function () {
             id: $('#idCuenta').val(),
             nombre: $('#nombre').val(),
             valor: $('#valor').val(),
-            fciclof: $('#fciclof').val(),
             fcierref: $('#fcierref').val(),
             fpago: $('#fpago').val(),
             fcreacion: $('#fcreacion').val(),
@@ -341,44 +322,159 @@ $(document).ready(function () {
             banco: $('#banco').val()
         }
         let url = editingCuenta === false ? 'response/cuenta-add.php' : 'response/cuenta-edit.php';
-        $.post(url, postData, function (repsonse) {
-            // $('#Home').toggleClass('none');
-            fetchCuentas();
-            editingCuenta = false;
-            Limpiar();
+        $.post(url, postData, function (response) {
+            $res = JSON.parse(response);
+            if ($res['res'] == "OK") {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'bottom-end',
+                    showConfirmButton: false,
+                    timer: 4500,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                });
+
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Categoria Guardada!'
+                });
+
+                fetchCuentas();
+                editingCuenta = false;
+                button_moving = false;
+                Limpiar();
+                $('#Home').removeClass('none');
+                $('#form-cuenta').addClass('none');
+                $('#delete-count').removeClass('none');
+                $('#nombre-cuenta').removeClass('none');
+                $('#edit-count').removeClass('none');
+                $('#crear-cuenta').text('Crear Nueva Cuenta');
+
+                $("#cuentaId").val(" ");
+                $("#nombre-cuenta").text("Selecciona una de tus Cuentas");
+
+            } else {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'bottom-end',
+                    showConfirmButton: false,
+                    timer: 4500,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                });
+
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Campo Vacio, Debes LLenarlo!',
+                });
+            }
+            // $('#form-cuenta').trigger('reset');
+
+
         });
         e.preventDefault();
     });
 
     $(document).on('click', '#delete-count', function () {
-        if (confirm('are you sure?')) {
-            let id = $('#cuentaId').val();
-            $.post('response/cuenta-delete.php', { id }, function (response) {
-                fetchCuentas();
-                $('#nombre-cuenta').text("Seleciona una Tajera");
-            });
+
+        let id = $('#cuentaId').val();
+
+        Swal.fire({
+            title: 'Seguro de Eliminar?',
+            text: "¡Al eliminar esta cuenta se eliminaran 'todo' lo relacionado incluyendo transacciones!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, Borrar!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.post('response/cuenta-delete.php', { id }, function (response) {
+                    fetchCuentas();
+                    $('#nombre-cuenta').text("Seleciona una Tajera");
+                });
+
+                Swal.fire(
+                    'Borrado!',
+                    'Cuenta Eliminada',
+                    'success'
+                );
+            }
+        });
+    });
+
+    $('#crear-cuenta').on('click', function () {
+        $('#Home').toggleClass('none');
+        $('#form-cuenta').toggleClass('none');
+        if (button_moving == false) {
+            $('#crear-cuenta').text('Ir a Home')
+            setDateToDay("#fcreacion");
+            button_moving = true;
+            $('#delete-count').addClass('none');
+            $('#nombre-cuenta').addClass('none');
+            $('#edit-count').addClass('none');
+
+        } else {
+            $('#crear-cuenta').text('Crear Nueva Cuenta');
+            button_moving = false;
+            $('#delete-count').removeClass('none');
+            $('#nombre-cuenta').removeClass('none');
+            $('#edit-count').removeClass('none');
+
+            Limpiar();
         }
     });
 
     $(document).on('click', '#edit-count', function () {
         let id = $('#cuentaId').val();
+
         $.post('response/cuenta-data.php', { id }, function (response) {
-            let Data = JSON.parse(response);
-            $('#idCuenta').val(Data.id);
-            $('#nombre').val(Data.nombre);
-            $('#valor').val(Data.valor);
-            $('#fciclof').val(Data.fechaCiclof);
-            $('#fcierref').val(Data.fechaCierref);
-            $('#fpago').val(Data.fechaPgo);
-            $('#fcreacion').val(Data.creacionF);
-            $('#tipoCuenta').val(Data.tipoCuenta);
-            $('#tipoMoneda').val(Data.tipoMoneda);
-            $('#banco').val(Data.banco);
-            editingCuenta = true;
-            $('#Home').toggleClass('none');
-            $('#form-cuenta').toggleClass('none');
-            $('#crear-cuenta').text('Ir a Home')
-            button_moving = true;
+            try {
+                let Data = JSON.parse(response);
+                $('#idCuenta').val(Data.id);
+                $('#nombre').val(Data.nombre);
+                $('#valor').val(Data.valor);
+                $('#fcierref').val(Data.fechaCierref);
+                $('#fpago').val(Data.fechaPgo);
+                $('#fcreacion').val(Data.creacionF);
+                $('#tipoCuenta').val(Data.tipoCuenta);
+                $('#tipoMoneda').val(Data.tipoMoneda);
+                $('#banco').val(Data.banco);
+                editingCuenta = true;
+                $('#Home').toggleClass('none');
+                $('#form-cuenta').toggleClass('none');
+                $('#crear-cuenta').text('Ir a Home')
+                button_moving = true;
+                $('#delete-count').toggleClass('none');
+                $('#nombre-cuenta').toggleClass('none');
+                $('#edit-count').toggleClass('none');
+            } catch (error) {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'bottom-end',
+                    showConfirmButton: false,
+                    timer: 4500,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                });
+
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Selecciona una Cuenta    !',
+                });
+            }
         });
     });
 
@@ -398,13 +494,13 @@ $(document).ready(function () {
         let id2 = $(elemet2).attr('id');
         c = "#" + id2 + " .item-card .bin-ic";
 
-        
+
         let nombre = $(c).text();
         let template = `
                 <div id="image-items">
-                <hr>
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </div>`;
+                    <hr>
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>`;
         $('#nombre-cuenta').text(nombre.toUpperCase());
         $('#list').html(template);
         $('#item-info-box').html("");
@@ -416,11 +512,10 @@ $(document).ready(function () {
                 <div>
                     <p>Valor : ${items.moneda + items.valor}</p>`;
 
-            if (items.fciclo == null) {
+            if (items.fcierre == null) {
                 template += `</div>`;
             } else {
                 template += ` 
-                    <p>Ciclo : ${items.fciclo}</p>
                     <p>Cierre : ${items.fcierre}</p>
                     <p>Pago : ${items.fpago}</p>
                 </div>`;

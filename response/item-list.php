@@ -15,7 +15,6 @@
             'precio' => $row['precio'],
             'detalle' => $row['detalle'],
             'fecha' => $row['fecha'],
-            'estado' => $row['id_estado'],
             'categoria' => $row['id_categoria'],
             'cuenta' => $row['id_medioPago']
         );

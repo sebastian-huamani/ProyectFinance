@@ -4,8 +4,11 @@
     $month = $_POST['month'];
     $year = $_POST['year'];
     $count = $_POST['count'];
-
-    $query = "Call SP_Items_Cuenta_Listar($month, $year, $count)";
+    
+    session_start();
+    $session_user = intval($_SESSION['session_user']);
+    
+    $query = "Call SP_Items_Cuenta_Listar($month, $year, $count, $session_user)";   
     $result = mysqli_query($conn, $query);
 
     if(!$result){
@@ -20,7 +23,6 @@
             'precio' => $row['precio'],
             'detalle' => $row['detalle'],
             'fecha' => $row['fecha'],
-            'estado' => $row['id_estado'],
             'categoria' => $row['id_categoria'],
             'cuenta' => $row['id_medioPago']
         );
@@ -28,5 +30,4 @@
 
     $jsonStr = json_encode($json);
     echo $jsonStr;
-    
 ?>

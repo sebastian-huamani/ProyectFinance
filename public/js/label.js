@@ -10,6 +10,7 @@ $(document).ready(function () {
             url: 'response/categoria-list.php',
             type: 'POST',
             success: function (response) {
+                console.log(response);
                 let labels = JSON.parse(response);
                 let template = "";
                 labels.forEach(label => {
@@ -47,9 +48,9 @@ $(document).ready(function () {
             if ($res['res'] == "OK") {
                 const Toast = Swal.mixin({
                     toast: true,
-                    position: 'top-end',
+                    position: 'bottom-end',
                     showConfirmButton: false,
-                    timer: 3000,
+                    timer: 4500,
                     timerProgressBar: true,
                     didOpen: (toast) => {
                         toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -64,7 +65,7 @@ $(document).ready(function () {
             } else {
                 const Toast = Swal.mixin({
                     toast: true,
-                    position: 'top-end',
+                    position: 'bottom-end',
                     showConfirmButton: false,
                     timer: 4500,
                     timerProgressBar: true,

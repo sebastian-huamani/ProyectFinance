@@ -13,7 +13,6 @@
         while($row = mysqli_fetch_array($result)){
             $json[] = array(
                 'valor' => $row['valor'],
-                'fciclo' => $row['fecha_ciclo_factura'],
                 'fcierre' => $row['fecha_cierre_facturacion'],
                 'fpago' => $row['fecha_pago'],
                 'moneda' => $row['ticket']

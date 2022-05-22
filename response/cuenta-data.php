@@ -17,7 +17,6 @@
                 'id' => $row['id_cuenta'],
                 'nombre' => $row['nombre'],
                 'valor' => $row['valor'],
-                'fechaCiclof' => $row['fecha_ciclo_factura'],
                 'fechaCierref' => $row['fecha_cierre_facturacion'],
                 'fechaPgo' => $row['fecha_pago'],
                 'creacionF' => $row['fecha_creacion'],

@@ -1,8 +1,8 @@
-<?php 
+<?php
+    require_once('controller/user/session.php');
     require_once('template/nav.php');
     require_once('template/lateral-nav.php');
 ?>
-
 
 <div class="categoria-box">
 
@@ -19,6 +19,7 @@
         <div class="send">
             <button type="submit" class="" id="save-categoria">Guardar</button>
         </div>
+
     </form>
 
     <div class="item-categoria">
@@ -33,9 +34,8 @@
 </div>
 
 
-<script src="js/label.js"></script>
+<script src="public/js/label.js"></script>
 
 <?php 
     include_once("template/footer.php")
 ?>
-<!-- Cleudis12#4379 -->

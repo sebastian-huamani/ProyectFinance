@@ -1,11 +1,12 @@
 <?php
-require_once('template/nav.php');
-require_once('template/lateral-nav.php');
+    require_once('controller/user/session.php');
+    require_once('template/nav.php');
+    require_once('template/lateral-nav.php');
 ?>
 
 <div class="menu-superior-cuentas">
     <div class="menu-option-left">
-        <p class="menu-card-name" id="nombre-cuenta">Selecciona una de tus Cuentas</p>
+        <p class="menu-card-name">Nombre Tarjeta Tarjeta Tarjeta</p>
     </div>
     <div class="menu-option-right">
         <button class="menu-option" id="edit-count" href="">Modificar</button>
@@ -28,7 +29,7 @@ require_once('template/lateral-nav.php');
             <div class="info-big">
                 <ul id="card-info">
 
-                </ul>
+                </ul>   
                 <ul id="item-info-box">
 
                 </ul>
@@ -124,13 +125,7 @@ require_once('template/lateral-nav.php');
         </div>
     </div>
     
-    <div class="box-info-reverse-t none" >
-        <div class="item-input">
-            <label class="input">
-                <input class="input__field" name="fciclof" type="date" id="fciclof" placeholder=" " require />
-                <span class="input__label">F. Ciclo Factura</span>
-            </label>
-        </div>
+    <div class="box-info-reverse-t none">
 
         <div class="item-input">
             <label class="input">
@@ -142,7 +137,7 @@ require_once('template/lateral-nav.php');
         <div class="item-input">
             <label class="input">
                 <input class="input__field" name="fPago" type="date" id="fpago" placeholder=" " require />
-                <span class="input__label">F. Pago</span>
+                <span class="input__label">Utimo dia de Pago</span>
             </label>
         </div>
     </div>
@@ -152,7 +147,7 @@ require_once('template/lateral-nav.php');
     </div>
 </form>
 
-<script src="js/cuenta.js"></script>
+<script src="public/js/cuenta.js"></script>
 
 <?php
 include_once("template/footer.php");

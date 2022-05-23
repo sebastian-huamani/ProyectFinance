@@ -19,7 +19,6 @@
             while($row = mysqli_fetch_array($result)){
                 $json[] = array(
                     'id' => $row['id_Item'],
-                    'nombre' => $row['nombre'],
                     'precio' => $row['precio'],
                     'detalle' => $row['detalle'],
                     'fecha' => $row['fecha'],

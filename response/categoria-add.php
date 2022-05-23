@@ -5,12 +5,13 @@
     if($_SESSION['estado'] == 1){
         $user = $_SESSION['session_user'];
         $name = trim($_POST['name']);
+        $icon = trim($_POST['icon']);
     
         if(isset($name) and $name != ""){
     
             $categoria = $_POST['name'];
     
-            $query = "Call SP_Label_Insert('$categoria', $user)";
+            $query = "Call SP_Label_Insert('$categoria', $user, $icon)";
             $result = mysqli_query($conn, $query);
     
             if(!$result){

@@ -5,9 +5,6 @@
 ?>
 
 <div class="menu-superior-cuentas">
-    <div class="menu-option-left">
-        <p class="menu-card-name">Nombre Tarjeta Tarjeta Tarjeta</p>
-    </div>
     <div class="menu-option-right">
         <button class="menu-option" id="edit-count" href="">Modificar</button>
         <button class="menu-option" id="delete-count" href="">Eliminar</button>

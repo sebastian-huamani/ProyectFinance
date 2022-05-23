@@ -5,7 +5,6 @@
         
         $id = $_POST['id'];
         if(isset($id) and $id != ""){
-            $nombre = $_POST['nombre'];
             $precio = $_POST['precio'];
             $oldPrecio = $_POST['oldPrecio'];
             $detalle = $_POST['detalle'];
@@ -13,7 +12,7 @@
             $categoria = $_POST['categoria'];
             $cuenta = $_POST['cuenta'];
     
-            $query = "Call SP_Item_Edit($id ,'$nombre', $precio, '$detalle', '$fecha', $categoria, $cuenta, $oldPrecio)";
+            $query = "Call SP_Item_Edit($id , $precio, '$detalle', '$fecha', $categoria, $cuenta, $oldPrecio)";
         
             $result = mysqli_query($conn ,$query);
         

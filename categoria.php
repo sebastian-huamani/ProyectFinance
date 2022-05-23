@@ -16,6 +16,13 @@
             </label>   
         </div>
 
+        <div id="icons-box">
+            <ul class="icons">
+
+            </ul>    
+        </div>
+
+
         <div class="send">
             <button type="submit" class="" id="save-categoria">Guardar</button>
         </div>

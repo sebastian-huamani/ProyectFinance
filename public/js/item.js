@@ -57,65 +57,6 @@ $(document).ready(function () {
         $(elemet).val(y + "-" + m + "-" + d);
     }
 
-    // function fetchListItems() {
-    //     $.ajax({
-    //         url: 'response/item-list.php',
-    //         type: 'POST',
-    //         success: function (response) {
-    //             let items = JSON.parse(response);
-    //             let template = `<li>
-    //                 <div>
-    //                     <a href="#">Nombre</a>
-    //                 </div>
-    //                 <div>
-    //                     <p>Categoria</p>
-    //                 </div>
-    //                 <div>
-    //                     <p>Valor</p>
-    //                 </div>
-    //                 <div>
-    //                     <p>Fecha</p>
-    //                 </div>
-    //                 <div>
-    //                     <p>Cuenta</p>
-    //                 </div>
-    //                 <div class="item-seccion">  
-    //                     <p>Acciones</p>
-    //                 </div>
-    //             </li>`;
-    //             items.forEach(item => {
-    //                 template += `
-    //                 <li id="${item.id}">
-    //                     <div>
-    //                         <a href="#">${item.nombre}</a>
-    //                     </div>
-    //                     <div>
-    //                         <p>${item.categoria}</p>
-    //                     </div>
-    //                     <div>
-    //                         <p>${item.precio}</p>
-    //                     </div>
-    //                     <div>
-    //                         <p>${item.fecha}</p>
-    //                     </div>
-    //                     <div>
-    //                         <p>${item.cuenta}</p>
-    //                     </div>
-    //                     <div class="item-seccion">  
-    //                         <button id="modificar-item" class="edit-item">
-    //                             <i class="fa-solid fa-pen"></i>
-    //                         </button>
-    //                         <button id="eliminar-item" class="delete-item">
-    //                             <i class="fa-solid fa-trash-can"></i>
-    //                         </button>
-    //                     </div>
-    //                 </li>`
-    //             });
-    //             $('#list-item').html(template);
-    //         }
-    //     });
-    // }
-
     function fetchListItems() {
         $.ajax({
             url: 'response/cuenta-items.php',
@@ -133,9 +74,6 @@ $(document).ready(function () {
                     Items.forEach(item => {
                         template += `
                             <li id="${item.id}">
-                            <div>
-                                <p>${item.nombre}</p>
-                            </div>
                             <div>
                                 <p>${item.categoria}</p>
                             </div>
@@ -171,7 +109,6 @@ $(document).ready(function () {
     $('#form-item').submit(function (e) {
         const postData = {
             id: $('#idItem').val(),
-            nombre: $('#nombre').val(),
             precio: $('#precio').val(),
             oldPrecio: $('#oldValue').val(),
             detalle: $('#detalle').val(),
@@ -268,7 +205,6 @@ $(document).ready(function () {
         $.post('response/item-data.php', { Item, count }, function (response) {
             let Data = JSON.parse(response);
             $('#idItem').val(Data.id);
-            $('#nombre').val(Data.nombre);
             $('#precio').val(Data.precio);
             $('#oldValue').val(Data.precio);
             $('#detalle').val(Data.detalle);
@@ -297,9 +233,6 @@ $(document).ready(function () {
                 Items.forEach(item => {
                     template += `
                     <li id="${item.id}">
-                    <div>
-                        <p>${item.nombre}</p>
-                    </div>
                     <div>
                         <p>${item.categoria}</p>
                     </div>

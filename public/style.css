@@ -5,6 +5,10 @@
     --tradeGreen: #26a69a;
     --tradeRed: #ef5350;
     --cardSelect: #a7ffaa;
+
+    --bg-card : #307d7a;
+    --color-title:#234f6d;
+    --bg-green: #d0edc9;
 }
 
 html {
@@ -19,13 +23,18 @@ body {
 }
 
 button,
-input {
+input , select{
     outline: none;
+    cursor: pointer;
+}
+textarea:focus, input:focus, button:focus, select:focus{
+
 }
 
 .background-selected {
-    background-color: var(--cardSelect) !important;
+    background-color: var(--bg-card)!important;
     transition: all 0.5s ease;
+    color: wheat;
 }
 
 /* GLOBALS */
@@ -43,19 +52,17 @@ p {
     margin: 0;
 }
 
-input,
-button {
-    cursor: pointer;
-}
-
 .sub-title {
-    background-color: var(--tradeRed);
+    background-color: var(--color-title);
     padding: 1rem;
     margin-top: 0.5rem;
     border-radius: 0.5rem;
     font-size: 2.2rem;
-    font-weight: lighter;
+    color: wheat;
+    font-weight: bold;
     text-align: center;
+    -webkit-box-shadow: 2px 2px 17px 6px rgb(0 0 0 / 19%);
+    box-shadow: 2px 2px 17px 6px rgb(0 0 0 / 19%);
 }
 
 /* BUTTONS */
@@ -65,6 +72,10 @@ button {
     font-size: 2.2rem;
 }
 
+select{
+    border: none;
+    font-weight: bold;
+}
 /* SCROLLBAR */
 /* width */
 ::-webkit-scrollbar {
@@ -145,6 +156,8 @@ button {
     background: white;
     width: 100%;
     min-height: 15rem;
+    -webkit-box-shadow: 2px 2px 17px 6px rgba(0,0,0,0.19); 
+    box-shadow: 2px 2px 17px 6px rgba(0,0,0,0.19);
 }
 
 .item-input {
@@ -217,7 +230,7 @@ button {
 
 #list {
     list-style: circle;
-    padding: 0rem 2rem 0rem 3rem;
+    padding: 0rem 1rem 0rem 1rem;
     width: auto;
     min-height: 90%;
     text-align: end;
@@ -319,7 +332,9 @@ button {
 .send button {
     border-radius: 0.6rem;
     /* width: 10rem; */
-    background: #96e3b3;
+    background: var(--color-title);
+    font-weight: bold;
+    color: wheat;
     padding: 1rem 3rem;
     border: none;
 }
@@ -368,9 +383,9 @@ button {
 
 .box-item-categoria {
     border-radius: 0.3rem;
-    background: white;
     padding: 1.5rem 1.5rem 0rem 1.5rem;
     height: 100%;
+    background: var(--bg-green);
 }
 
 .box-item-categoria #list {
@@ -383,6 +398,34 @@ button {
     height: 77vh !important;
     max-height: 77vh !important;
     margin: 1rem 0;
+}
+
+#icons-box{
+    width: 90%;
+    margin: 6rem auto 0 auto;
+}
+
+.icons{
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-gap: 3.5rem 2rem;
+}
+.icon{
+    background-color: var(--bg-green);
+    border-radius: 3rem;
+    padding: 0.8rem 0.5rem;
+    cursor: pointer;
+}
+.icon i{
+    width: 2.8rem;
+}
+.icon-selected{
+    color: white!important;
+    background-color: var(--color-title)!important;
+}
+
+#icon-checkbox:checked + label{
+    background-color: red;
 }
 
 /* item */
@@ -421,7 +464,7 @@ button {
 
 .cuentas-box .item-categoria {
     background: none;
-    min-height: 100%;
+    padding-top: 3rem;
 }
 
 #items-cuentas {
@@ -436,6 +479,8 @@ button {
 #items-cuentas .item {
     margin: 1.5rem auto;
     transition: all 0.3s ease-in-out;
+    -webkit-box-shadow: 2px 2px 17px 6px rgba(0,0,0,0.05); 
+    box-shadow: 2px 2px 17px 6px rgba(0,0,0,0.05);
 }
 
 #items-cuentas .item:nth-child(1) {
@@ -455,7 +500,7 @@ button {
 
 .menu-superior-cuentas {
     display: flex;
-    justify-content: center;
+    justify-content: start;
     padding: 0 0 0 0;
     margin: 0 auto 0.7rem auto;
 }
@@ -464,6 +509,7 @@ button {
     position: absolute;
     width: 92%;
     text-align: start;
+    padding-top: 0.5rem;
 }
 
 .cuentas-opciones a {
@@ -477,7 +523,7 @@ button {
     background: #ffffff;
     padding: 0.5rem;
     border-radius: 0.4rem;
-    margin-left: 1rem;
+    margin-right: 1rem;
     border: 1px solid #f3f3f3;
 }
 
@@ -557,6 +603,7 @@ button {
     flex-direction: column;
     height: 100%;
     justify-content: space-between;
+    text-align: center;
 }
 
 .trans-descripcion {
@@ -603,13 +650,6 @@ button {
     margin: 0;
 }
 
-.menu-card-name {
-    letter-spacing: 0.1rem;
-    background-color: #26a69a;
-    padding: 0.3rem 8rem;
-    border-radius: 0.5rem;
-}
-
 #card-info {
     /* background-color: var(--tradeGreen); */
     width: auto;
@@ -640,6 +680,7 @@ button {
 #item-info-box p {
     width: 99%;
     margin: 2rem auto 0 auto;
+    word-break: break-all;
 }
 
 #image-items {
@@ -707,7 +748,7 @@ button {
     justify-content: space-between;
     align-items: center;
     margin: 1.4rem 0;
-    background-color: #ade9e3;
+    background-color: #ffffff;
     padding: 0.5rem 1.2rem;
     border-radius: 0.4rem;
 }
@@ -751,6 +792,14 @@ button {
 
 #list-seccion li div:nth-child(1) {
     text-align: start;
+}
+
+.textarea-input textarea{
+    resize: none;
+    width: 1005;
+}
+.textarea-input{
+    width: 100%;
 }
 
 .none {
@@ -802,6 +851,7 @@ button {
 
 .input-search-edit select {
     width: 30rem;
+    border-bottom: 1px solid black!important;
 }
 
 #item-serch-show {
@@ -816,12 +866,12 @@ button {
 
 #list-item li {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     grid-gap: 2rem;
     text-align: center;
     align-items: center;
     margin: 0.4rem auto;
-    background: white;
+    background: var(--bg-green);
     border-radius: 0.6rem;
     height: 3.4rem;
 
@@ -833,7 +883,7 @@ button {
 }
 
 .categoria-uso {
-    background-color: aliceblue;
+    background-color: var(--bg-green);
     padding: 0.3rem 0.8rem;
     border-radius: 1.5rem;
 }

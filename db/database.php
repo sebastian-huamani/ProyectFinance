@@ -3,6 +3,6 @@
         'localhost',
         'root',
         '',
-        'finance'
+        'fin'
     );
 ?>

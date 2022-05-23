@@ -141,6 +141,38 @@ $(document).ready(function () {
             data: []
         }],
         chart: {
+            toolbar:{
+                show: true,
+                offsetX: 5,
+                offsetY: -5,
+                tools:{
+                    download: true,
+                    selection: false,
+                    zoom: false,
+                    zoomin: false,
+                    zoomout: false,
+                    pan: false,
+                    reset: false | '<img src="/static/icons/reset.png" width="20">',
+                    customIcons: []
+                },
+                export:{
+                    csv: {
+                        filename: undefined,
+                        columnDelimiter: ',',
+                        headerCategory: 'category',
+                        headerValue: 'value',
+                        dateFormatter(timestamp) {
+                            return new Date(timestamp).toDateString()
+                        }
+                    },
+                    svg: {
+                        filename: undefined,
+                    },
+                    png: {
+                        filename: undefined,
+                    }
+                }
+            },
             type: 'bar',
             height: '155px'
         },
@@ -222,7 +254,7 @@ $(document).ready(function () {
                             <i class="fa-regular fa-paper-plane"></i>
                         </div>
                         <div class="trans-info">
-                            <p class="trans-descripcion">${item.nombre}</p>
+                            <p class="trans-descripcion">${item.categoria}</p>
                             <p class="trans-fecha">${item.fecha}</p>
                         </div>
                         <p class="trans-cantidad">${item.precio}</p>
@@ -287,8 +319,9 @@ $(document).ready(function () {
         let elemet = $(this)[0];
         let Item = $(elemet).attr('id');
         let count = $('#cuentaId').val();
+
         $('.transaccion-item').removeClass("background-selected");
-        $("#" + Item).addClass("background-selected");
+        $("#list #"  + Item).addClass("background-selected");
 
 
         $.post('response/item-data.php', { Item, count }, function (response) {
@@ -297,13 +330,13 @@ $(document).ready(function () {
             let template = `
             <p>Informacion Movimiento: </p>
             <div>
-                <li>nombre: ${items.nombre} </li>
                 <li>Valor: ${items.precio} </li>
                 <li>F. Ingreso: ${items.fecha}</li>
-                <li>Estado: ${items.estado}</li>
                 <li>Categoria: ${items.categoria} </li>
                 </div>
-                <p>Detalle: ${items.detalle}</p>`;
+                <p>Detalle: 
+                    <p>${items.detalle}</p>
+                </p>`;
             $('#item-info-box').html("");
             $('#item-info-box').html(template);
         });

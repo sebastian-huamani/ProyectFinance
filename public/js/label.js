@@ -1,16 +1,27 @@
 $(document).ready(function () {
-
+    let icon = 0;
     let editing = false;
     fetchList();
+    fetchListIcon();
 
 
+    $(document).on('click', '.icon',function(){
+        let elemet = $(this)[0];
+        icon = $(elemet).attr('id'); // id del elemento selseccionado
+        selected = true
+
+        $('.icon').removeClass("icon-selected");
+        $('.icons #' + icon).addClass("icon-selected");
+
+        console.log(icon, selected);
+    });
+    
 
     function fetchList() {
         $.ajax({
             url: 'response/categoria-list.php',
             type: 'POST',
             success: function (response) {
-                console.log(response);
                 let labels = JSON.parse(response);
                 let template = "";
                 labels.forEach(label => {
@@ -36,12 +47,31 @@ $(document).ready(function () {
         });
     }
 
+    function fetchListIcon() {
+        $.ajax({
+            url: 'response/icons-list.php',
+            type: 'POST',
+            success: function (response) {
+                let labels = JSON.parse(response);
+                let template = "";
+                labels.forEach(label => {
+                    template += `
+                    <li id="${label.id}" class="icon">
+                        <i class="${label.code}"></i>
+                    </li>`
+                });
+                $('.icons').html(template);
+            }
+        });
+    }
+
     $('#form-categorias').submit(function (e) {
         const postData = {
             id: $('#categoria-id').val(),
-            name: $('#categorias').val()
+            name: $('#categorias').val(),
+            icon : icon
         };
-
+        console.log(postData);
         let url = editing === false ? 'response/categoria-add.php' : 'response/categoria-edit.php';
         $.post(url, postData, function (response) {
             $res = JSON.parse(response);

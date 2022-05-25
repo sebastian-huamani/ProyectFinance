@@ -27,6 +27,7 @@
                 <ul id="card-info">
 
                 </ul>   
+                
                 <ul id="item-info-box">
 
                 </ul>

@@ -7,6 +7,7 @@
         $fecha = trim($_POST['fecha']);
         $categoria = trim($_POST['categoria']);
         $cuenta = trim($_POST['cuenta']);
+        
     
         if((isset($precio) and $precio != "") and (isset($fecha) and $fecha != "" ) and (isset($categoria) and $categoria != "" ) and (isset($cuenta) and $cuenta != "" )){
     

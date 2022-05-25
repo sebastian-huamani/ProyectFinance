@@ -1,9 +1,22 @@
 $(document).ready(function () {
+    signo = true
     editing = false;
     cmModalidad();
     cmbCuentas();
     // fetchListItems();
     setDateToDay("#fecha");
+
+    $('.signo-item-precio').on('click', function () {  
+        if(signo){
+            $('.signo-item-precio div').remove();  
+            $('.signo-item-precio').append(`<p><i class="fa-solid fa-minus"></i></p>`);
+            signo = false
+        } else {
+            $('.signo-item-precio p').remove();  
+            $('.signo-item-precio').append(`<div><i class="fa-solid fa-plus red"></i></div>`);
+            signo = true
+        }
+    });
 
     $('.move-scene').on('click', function () {
         $('.categoria-item').toggleClass('none');
@@ -114,7 +127,8 @@ $(document).ready(function () {
             detalle: $('#detalle').val(),
             fecha: $('#fecha').val(),
             categoria: $('#categorias').val(),
-            cuenta: $('#cuentas').val()
+            cuenta: $('#cuentas').val(),
+            signo: signo,
         };
         console.log(postData);
         let url = editing === false ? 'response/item-add.php' : 'response/item-edit.php';

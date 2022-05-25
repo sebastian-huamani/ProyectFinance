@@ -15,7 +15,8 @@
             $json[] = array(
                 'id' => $row['id_categoria'],
                 'nombre' => $row['nombre'],
-                'uso' => $row['uso']
+                'uso' => $row['uso'],
+                'code' => $row['code']
             );
         }
         

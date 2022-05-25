@@ -7,8 +7,9 @@
         if(isset($_POST['id'])){
             $id = $_POST['id'];
             $categoria = $_POST['name'];
+            $icon = $_POST['icon'];
         
-            $query = "Call SP_Label_Edit($id,'$categoria')";
+            $query = "Call SP_Label_Edit($id,'$categoria', $icon)";
             $result = mysqli_query($conn ,$query);
         
             if(!$result){

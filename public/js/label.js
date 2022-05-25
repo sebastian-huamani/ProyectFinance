@@ -27,10 +27,12 @@ $(document).ready(function () {
                 labels.forEach(label => {
                     template += `
                     <li id="${label.id}" class="${label.uso}">
-                        <div>
+                        <div class="categoria-uso-box">
                             <p><span class="categoria-uso">${label.uso}</span> ${label.nombre} </p> 
                         </div>
-                        
+                        <div class="categoria-icon">
+                            <i class="${label.code}"></i>
+                        </div>
                         <div class="item-seccion">  
                             <button id="edit-categoria" class="edit-label">
                                 <i class="fa-solid fa-pen"></i>
@@ -92,6 +94,8 @@ $(document).ready(function () {
                     icon: 'success',
                     title: 'Categoria Guardada!'
                 });
+
+                $('.icon').removeClass("icon-selected");    
             } else {
                 const Toast = Swal.mixin({
                     toast: true,

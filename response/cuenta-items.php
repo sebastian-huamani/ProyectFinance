@@ -23,7 +23,8 @@
             'detalle' => $row['detalle'],
             'fecha' => $row['fecha'],
             'categoria' => $row['id_categoria'],
-            'cuenta' => $row['id_medioPago']
+            'cuenta' => $row['id_medioPago'],
+            'code' => $row['code']
         );
     }
 

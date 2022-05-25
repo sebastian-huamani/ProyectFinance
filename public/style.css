@@ -5,7 +5,6 @@
     --tradeGreen: #26a69a;
     --tradeRed: #ef5350;
     --cardSelect: #a7ffaa;
-
     --bg-card : #307d7a;
     --color-title:#234f6d;
     --bg-green: #d0edc9;
@@ -199,7 +198,9 @@ select{
     justify-content: space-between;
     margin-bottom: 1.5rem;
 }
-
+.card svg{
+    font-size: 4rem;
+}
 .card-price {
     text-align: center;
     font-size: 3rem;
@@ -408,24 +409,48 @@ select{
 .icons{
     display: grid;
     grid-template-columns: repeat(9, 1fr);
-    grid-gap: 3.5rem 2rem;
+    grid-gap: 2.5rem 2rem;
 }
 .icon{
     background-color: var(--bg-green);
     border-radius: 3rem;
     padding: 0.8rem 0.5rem;
     cursor: pointer;
-}
-.icon i{
     width: 2.8rem;
 }
+
 .icon-selected{
     color: white!important;
     background-color: var(--color-title)!important;
 }
 
-#icon-checkbox:checked + label{
-    background-color: red;
+.precio-box{
+    display:grid;
+    grid-template-columns: 8rem auto;
+}
+
+
+.signo-item-precio{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-size: 3rem;
+    cursor: pointer;
+}
+.signo-item-precio p svg  {
+    background-color: var(--tradeRed);
+    margin-top: 0.3rem;
+    padding: 1.4rem 1.6rem;
+    border-radius: 0.7rem;
+    color: white;
+}
+.signo-item-precio div svg {
+    background-color: var(--bg-card);
+    margin-top: 0.3rem;
+    padding: 1.4rem 1.6rem;
+    border-radius: 0.7rem;
+    color: white;
 }
 
 /* item */
@@ -437,6 +462,7 @@ select{
     width: 90%;
     margin: 0 auto 2rem auto;
 }
+
 
 .box-info-reverse {
     display: grid;
@@ -583,10 +609,11 @@ select{
 .transaccion-item {
     padding: 0.5rem;
     text-align: start;
-    display: flex;
-    justify-content: space-around;
-    align-items: end;
+    display: grid;
+    grid-template-columns: 3rem 2rem 12rem 5rem;
+    align-items: center;
     height: 4.1rem;
+    max-height: 4.1rem;
     transition: all 0.3s ease-in-out;
 }
 
@@ -595,7 +622,7 @@ select{
 }
 
 .trans-icon {
-    margin-bottom: 0.8rem;
+    /* margin-bottom: 0.8rem; */
 }
 
 .trans-info {
@@ -659,7 +686,9 @@ select{
 #item-info-box {
     /* background-color: var(--tradeRed); */
     width: auto;
-    padding: 1.7rem
+    padding: 1.7rem;
+    display: grid;
+    grid-template-columns: repeat(2,1fr)
 }
 
 #card-info div,
@@ -675,6 +704,8 @@ select{
 #item-info-box div {
     margin-top: 2rem !important;
     grid-gap: 3rem 1rem !important;
+    display: flex!important;
+    flex-direction: column!important;
 }
 
 #item-info-box p {
@@ -705,8 +736,20 @@ select{
 
 .trans-cantidad {
     font-size: 1.4rem;
+    text-align: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column-reverse;
 }
 
+#search-items{
+    background-color: var(--bg-card);
+    border: none;
+    width: 4.1rem;
+    padding: 0.4rem;
+    border-radius: 1.5rem;
+    color: wheat;
+}
 /* ACCIONES */
 
 .acciones-box {
@@ -739,18 +782,25 @@ select{
     margin: 1rem 0;
 }
 
-#categoria-list-seccion li:nth-child(1) {
-    margin-top: 0rem;
-}
 
 #categoria-list-seccion li {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
     align-items: center;
     margin: 1.4rem 0;
     background-color: #ffffff;
     padding: 0.5rem 1.2rem;
     border-radius: 0.4rem;
+}
+#categoria-list-seccion li:nth-child(1) {
+    margin-top: 0rem;
+}
+.categoria-uso-box {
+    text-align: start;
+    width: 20rem;
+}
+.categoria-icon{
+    text-align: center;
 }
 
 .item-seccion button {

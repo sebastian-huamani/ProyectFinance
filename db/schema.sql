@@ -100,19 +100,32 @@ insert into icons(code) values
 ("fa-solid fa-square-poll-vertical"),
 ("fa-solid fa-utensils"),
 ("fa-solid fa-landmark"),
-("fa-solid fa-landmark-flag"),
-("fa-solid fa-mobile-screen"),
 ("fa-solid fa-user-graduate"),
 ("fa-solid fa-basket-shopping"),
 ("fa-solid fa-credit-card"),
 ("fa-solid fa-dog"),
+("fa-solid fa-money-check-dollar"),
+("fa-solid fa-user-nurse");
+("fa-solid fa-landmark-flag"),
+("fa-solid fa-mobile-screen"),
 ("fa-solid fa-faucet-drip"),
 ("fa-solid fa-money-bill-trend-up"),
 ("fa-solid fa-money-bill-transfer"),
-("fa-solid fa-money-check-dollar"),
 ("fa-solid fa-truck-plane"),
-("fa-solid fa-user-nurse"),
-("fa-solid fa-user-nurse");
+("fa-solid fa-sack-dollar")
+("fa-solid fa-paper-plane"),
+("fa-solid fa-children"),
+("fa-solid fa-child"),
+("fa-solid fa-computer"),
+("fa-solid fa-cat"),
+("fa-solid fa-car-side"),
+("fa-solid fa-gas-pump"),
+("fa-solid fa-book"),
+("fa-solid fa-book"),
+("fa-solid fa-shirt"),
+("fa-solid fa-gamepad"),
+("fa-solid fa-cart-shopping"),
+("fa-solid fa-person-biking");
 
 insert into Categoria(nombre,uso, id_usuario, id_icon) values("Servicio Luz", 0, 1, 2),("Internet Hogar", 0, 1,7);
 
@@ -169,7 +182,11 @@ end//
 DROP PROCEDURE IF EXISTS SP_Label_Listar;//
 create procedure SP_Label_Listar(user int)
 begin
-    select * from categoria where id_usuario = user;
+    select C.id_categoria, C.nombre, C.uso, C.id_usuario  ,IC.code from 
+    categoria C
+    inner join icons IC
+    on C.id_icon = IC.id_icon
+    where id_usuario = user;
 end//
 
 DROP PROCEDURE IF EXISTS SP_Label_Insert;//
@@ -179,9 +196,9 @@ begin
 end//
 
 DROP PROCEDURE IF EXISTS SP_Label_Edit;//
-create procedure SP_Label_Edit(id int, nom varchar(50))
+create procedure SP_Label_Edit(id int, nom varchar(50), ico int)
 begin
-    update categoria set nombre = nom where id_categoria = id;
+    update categoria set nombre = nom , id_icon = ico where id_categoria = id;
 end//
 
 DROP PROCEDURE IF EXISTS SP_Label_Delete;//
@@ -189,9 +206,6 @@ create procedure SP_Label_Delete(id int)
 begin
     delete from categoria where id_categoria = id;
 end//
-
-
-
 
 -- prcedure cuentas 
 DROP PROCEDURE IF EXISTS SP_Cuenta_List;//
@@ -231,12 +245,14 @@ end//
 DROP PROCEDURE IF EXISTS SP_Items_Cuenta_Listar;//
 CREATE PROCEDURE SP_Items_Cuenta_Listar(m int , y int, c int,id int)
 begin
-    select I.id_Item, I.precio, I.detalle, I.fecha,  C.nombre "id_categoria", TC.nombre "id_medioPago"
+    select I.id_Item, I.precio, I.detalle, I.fecha,  C.nombre "id_categoria", TC.nombre "id_medioPago", IC.code
     from item I 
     inner join categoria C
     on I.id_categoria = C.id_categoria
     inner join cuenta TC
     on I.id_medioPago = TC.id_cuenta
+    inner join icons IC
+    on C.id_icon = IC.id_icon
     where MONTH(I.fecha) = m AND YEAR(I.fecha) = y and I.id_medioPago = c AND TC.id_usuario = id order by I.fecha desc Limit 31;
 end//
 
@@ -293,11 +309,60 @@ end//
 
 
 
+select I.id_Item, I.precio, I.fecha, C.nombre
+from Item I
+inner join  categoria C
+on I.id_categoria = C.id_categoria
+where C.id_categoria = 8 and C.id_usuario = 1;
+
+-- sp para Graficos
 
 
+DROP PROCEDURE IF EXISTS for_loop_example//
+CREATE procedure for_loop_example()
+BEGIN
+  DECLARE x INT;
+  DECLARE str VARCHAR(255);
+  SET x = -5;
+  SET str = '';
+  loop_label: LOOP
+    IF x > 0 THEN
+      LEAVE loop_label;
+    END IF;
+    SET str = CONCAT(str,x,',');
+    SET x = x + 1;
+    ITERATE loop_label;
+  END LOOP;
+  SELECT str;
+END//
 
+DROP PROCEDURE IF EXISTS for_loop_example//
+CREATE procedure for_loop_example()
+BEGIN
+  DECLARE x INT;
+  DECLARE str VARCHAR(255);
+  SET x = -5;
+  SET str = '';
+  loop_label: LOOP
+    IF x > 0 THEN
+      LEAVE loop_label;
+    END IF;
+    SET str = CONCAT(str,x,',');
+    SET x = x + 1;
+    ITERATE loop_label;
+  END LOOP;
+  SELECT str;
+END//
+-- +-------------------+
+-- | str               |
+-- +-------------------+
+-- | -5,-4,-3,-2,-1,0, |
+-- +-------------------+
 
+CREATE procedure ej(IN val int)     /* Parámetro de entrada */
+    begin   
 
+delimiter ;
 
 -- DROP PROCEDURE IF EXISTS SP_Prueba1;
 -- create procedure SP_Prueba1()

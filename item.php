@@ -12,31 +12,31 @@
 
 <div class="categoria-item">
     <form class="form-item" id="form-item" method="POST">
-        <h4 class="sub-title">Nuevo Item</h4>
+        <h4 class="sub-title">Crear Nuevo Item</h4>
         <div class="box-info-reverse ">
             <input type="hidden" name="id_item" id="idItem">
             <input type="hidden" name="oldValue" id="oldValue">
     
             <div class="item-input">
-                <label class="input">
-                    <input class="input__field" name="precio" type="number" step=".01" id="precio" placeholder=" " require />
-                    <span class="input__label">Precio</span>
-                </label>
-            </div>
-            
-            <div class="item-input">
-                <label class="input">
-                    <input class="input__field" name="fecha" type="date" id="fecha" require />
-                    <span class="input__label">Fecha</span>
-                </label>
-            </div>
-            <div class="item-input">
                 <select name="categoria" id="categorias" class="option-form" require>
-    
+
                 </select>
             </div>
-        </div>
-        <div class="box-info-reverse-t">
+            <div class="precio-box">
+                <div class="signo-item-precio">
+                    <div>
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                </div>
+
+                <div class="item-input">
+                    <label class="input">
+                        <input class="input__field" name="precio" type="number" step=".01" id="precio" min="00.0" placeholder=" " require />
+                        <span class="input__label">Precio</span>
+                    </label>
+                </div>
+
+            </div>
 
             <div class="item-input">
                 <select name="cuenta" id="cuentas" class="option-form" require>
@@ -44,6 +44,16 @@
                 </select>
             </div>
         </div>
+
+        <div class="box-info-reverse-t">
+            <div class="item-input">
+                <label class="input">
+                    <input class="input__field" name="fecha" type="date" id="fecha" require />
+                    <span class="input__label">Fecha</span>
+                </label>
+            </div>
+        </div>
+
         <div class="box-info-reverse-center">
             <div class="item-input">
                 <label class="input textarea-input">
@@ -52,6 +62,7 @@
                 </label>
             </div>
         </div>
+
         <div class="send">
             <button class="" id="save-item">Guardar</button>
         </div>
@@ -103,5 +114,5 @@
 
 <script src="public/js/item.js"></script>
 <?php
-include_once("template/footer.php");
+    include_once("template/footer.php");
 ?>

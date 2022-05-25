@@ -183,13 +183,21 @@ $(document).ready(function () {
             bar: {
                 colors: {
                     ranges: [{
-                        from: -100,
-                        to: -46,
+                        from: -10000,
+                        to: -150,
                         color: '#F15B46'
                     }, {
-                        from: -45,
+                        from: -150,
                         to: 0,
                         color: '#FEB019'
+                    }, {
+                        from: 0,
+                        to: 150,
+                        color: '#267ec3'
+                    }, {
+                        from: 150,
+                        to: 10000,
+                        color: '#26a69a'
                     }]
                 },
                 columnWidth: '80%',
@@ -251,7 +259,7 @@ $(document).ready(function () {
                             <i class="fa-solid fa-angle-left"></i>
                         </div>
                         <div class="trans-icon">
-                            <i class="fa-regular fa-paper-plane"></i>
+                            <i class="${item.code}"></i>
                         </div>
                         <div class="trans-info">
                             <p class="trans-descripcion">${item.categoria}</p>
@@ -328,15 +336,17 @@ $(document).ready(function () {
             let items = JSON.parse(response);
 
             let template = `
-            <p>Informacion Movimiento: </p>
+            
             <div>
+                <p>Informacion Movimiento: </p>
                 <li>Valor: ${items.precio} </li>
                 <li>F. Ingreso: ${items.fecha}</li>
-                <li>Categoria: ${items.categoria} </li>
-                </div>
+            </div>
+            <div>
                 <p>Detalle: 
                     <p>${items.detalle}</p>
-                </p>`;
+                </p>
+            </div>`;
             $('#item-info-box').html("");
             $('#item-info-box').html(template);
         });

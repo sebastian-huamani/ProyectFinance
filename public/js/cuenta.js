@@ -16,6 +16,8 @@ $(document).ready(function () {
         }
     };
 
+    
+
     function daysInMonth(month, year, Arr) {
         let a = new Date(year, month, 0).getDate();
         let zero = ""
@@ -100,7 +102,7 @@ $(document).ready(function () {
                                 <p class="fecha-ic">fecha creacion: ${item.creacionF}</p>
                             </div>
                             <p class="bin-ic" id="bin-ic">${item.nombre}</p>
-                            <div class="footer-ic">
+                            <div class="footer-ic" id="footer-card">
                                 <button class="btn-ic" id="${item.id}"> <i class="fa-solid fa-angle-right"></i> Ver</button>
                                 <p class="tipo-ic"> <span class="entidad-ic">${item.banco} : </span>${item.tipoCuenta}</p>
                             </div>
@@ -533,18 +535,13 @@ $(document).ready(function () {
         $(".item").removeClass("background-selected");
         $("#" + id).addClass("background-selected");
 
-        let elemet2 = $(this)[0].parentElement.parentElement.parentElement;
-        let id2 = $(elemet2).attr('id');
-        c = "#" + id2 + " .item-card .bin-ic";
+        
 
-
-        let nombre = $(c).text();
         let template = `
                 <div id="image-items">
                     <hr>
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </div>`;
-        $('#nombre-cuenta').text(nombre.toUpperCase());
         $('#list').html(template);
         $('#item-info-box').html("");
 

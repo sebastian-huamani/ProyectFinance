@@ -35,6 +35,10 @@ textarea:focus, input:focus, button:focus, select:focus{
     transition: all 0.5s ease;
     color: wheat;
 }
+.background-selected .item-card #footer-card button{
+    color: white;
+    transition: all 0.5s ease;
+}
 
 /* GLOBALS */
 ul {
@@ -226,7 +230,10 @@ select{
 }
 
 .down-two {
-    grid-column: 3 / 5;
+    grid-column: 3 / 4;
+}
+.down-three{
+   grid-column: 4 / 6;
 }
 
 #list {
@@ -422,35 +429,6 @@ select{
 .icon-selected{
     color: white!important;
     background-color: var(--color-title)!important;
-}
-
-.precio-box{
-    display:grid;
-    grid-template-columns: 8rem auto;
-}
-
-
-.signo-item-precio{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    font-size: 3rem;
-    cursor: pointer;
-}
-.signo-item-precio p svg  {
-    background-color: var(--tradeRed);
-    margin-top: 0.3rem;
-    padding: 1.4rem 1.6rem;
-    border-radius: 0.7rem;
-    color: white;
-}
-.signo-item-precio div svg {
-    background-color: var(--bg-card);
-    margin-top: 0.3rem;
-    padding: 1.4rem 1.6rem;
-    border-radius: 0.7rem;
-    color: white;
 }
 
 /* item */
@@ -722,7 +700,7 @@ select{
     color: #dcdcdc;
 }
 
-#image-items i {
+#image-items svg{
     position: absolute;
     font-size: 3rem;
     background-color: #fff;

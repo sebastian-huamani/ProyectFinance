@@ -305,73 +305,85 @@ create procedure SP_Icons_List()
 begin   
     select * from icons;
 end//
-
-
-
-
-select I.id_Item, I.precio, I.fecha, C.nombre
-from Item I
-inner join  categoria C
-on I.id_categoria = C.id_categoria
-where C.id_categoria = 8 and C.id_usuario = 1;
-
+-- 
 -- sp para Graficos
+DROP FUNCTION FN_prueba//
+CREATE function FN_prueba(id_label int)    
+returns varchar(60)  
+begin   
+    declare total decimal(9,2);
+    select sum(precio) from item where id_categoria = id_label into total;
+    return CONVERT(total, varchar(60));
+end//
+select FN_prueba(8)//
 
 
-DROP PROCEDURE IF EXISTS for_loop_example//
-CREATE procedure for_loop_example()
-BEGIN
-  DECLARE x INT;
-  DECLARE str VARCHAR(255);
-  SET x = -5;
-  SET str = '';
-  loop_label: LOOP
-    IF x > 0 THEN
-      LEAVE loop_label;
-    END IF;
-    SET str = CONCAT(str,x,',');
-    SET x = x + 1;
-    ITERATE loop_label;
-  END LOOP;
-  SELECT str;
-END//
+DROP PROCEDURE IF EXISTS SP_recorre_selct//
+CREATE procedure SP_recorre_selct(user int)
+begin   
+    declare done bool default false;
+    declare _parent_id int unsigned;
+    declare _parent_name varchar(60);
+    declare _parent_price varchar(60);
 
-DROP PROCEDURE IF EXISTS for_loop_example//
-CREATE procedure for_loop_example()
-BEGIN
-  DECLARE x INT;
-  DECLARE str VARCHAR(255);
-  SET x = -5;
-  SET str = '';
-  loop_label: LOOP
-    IF x > 0 THEN
-      LEAVE loop_label;
-    END IF;
-    SET str = CONCAT(str,x,',');
-    SET x = x + 1;
-    ITERATE loop_label;
-  END LOOP;
-  SELECT str;
-END//
--- +-------------------+
--- | str               |
--- +-------------------+
--- | -5,-4,-3,-2,-1,0, |
--- +-------------------+
+    declare info_string varchar(500);
+    declare temp_ varchar(500);
+    
+    declare cursor_recorre cursor for select  id_categoria, nombre from categoria where id_usuario = user;
 
-CREATE procedure ej(IN val int)     /* Parámetro de entrada */
-    begin   
+    declare CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
 
-delimiter ;
+    open cursor_recorre;
+    set info_string = "[";
+    set temp_ = "{";
+    write_loop: LOOP
+        fetch cursor_recorre into _parent_id , _parent_name;
 
--- DROP PROCEDURE IF EXISTS SP_Prueba1;
--- create procedure SP_Prueba1()
--- begin
---     declare can int;
+        if done THEN    
+            LEAVE write_loop;
+        end if;
+
+        set _parent_price = FN_prueba(_parent_id);
+
+        set temp_ = CONCAT_WS(":",temp_, _parent_name ,_parent_price,"}");  
+        set info_string =  CONCAT_WS(",",info_string, temp_);
+        set temp_ = "{";
+        
+    end LOOP;
+
+    set info_string = concat(info_string, "]" );
+
+    select info_string as "informacion";
+    close cursor_recorre;
+end//
+
+call SP_recorre_selct(1)//
+
+
+
+
+
+DROP PROCEDURE SP_info_items//
+CREATE PROCEDURE SP_info_items(id int)   
+begin 
+    select I.id_Item , I.precio, I.fecha, C.nombre as 'categoria', C.id_usuario, IC.code , CT.nombre as 'cuenta'
+    from Item I 
+    inner join Categoria C
+    on I.id_categoria = C.id_categoria
+    inner join cuenta CT
+    on I.id_medioPago = CT.id_cuenta
+    inner join icons IC
+    on C.id_icon = IC.id_icon
+    where C.id_usuario = id;
+end//   
+
+
+
+
 select sum(precio) from item where MONTH(fecha) = MONTH(now()) and precio > 0 and id_medioPago = 1;
 
 select sum(precio) from item where MONTH(fecha) = MONTH(now()) and precio < 0 and id_medioPago = 1;
--- end//
+
 
 -- credit totol
 

@@ -152,72 +152,35 @@ var chart2 = new ApexCharts(document.querySelector("#timeline"), options2);
 chart2.render();
 
 
-
-
-
-
-// chart.js
-
-
-
-var myChart3 = document.getElementById('myChart3').getContext('2d');
-
-var massPopChart = new Chart(myChart3, {
-  type: 'doughnut', // doughnut , pie
-  data: {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets: [{
-      label: 'Population',
-      data: [
-        6175,
-        1810,
-        1530,
-        1065,
-        1051,
-        950,
-        2001
-      ],
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.6)',
-        'rgba(54, 162, 235, 0.6)',
-        'rgba(255, 206, 86, 0.6)',
-        'rgba(75, 192, 192, 0.6)',
-        'rgba(153, 102, 255, 0.6)',
-        'rgba(255, 159, 64, 0.6)',
-        'rgba(255, 99, 132, 0.6)'
-      ],
-      borderWidth: 3,
-      hoverBorderWidth: 0,
-      hoverBorderColor: false,
-      hoverOffset: 15
-    }]
-  },
-  options: {
-    title: {
-      display: false,
-      text: 'Largest Cities In Massachusetts',
-      fontSize: 25
-    },
-    legend: {
-      display: false,
-      position: 'right',
-      labels: {
-        fontColor: '#000'
-      }
-    },
-    responsive: true,
-    tooltips: {
-      enabled: false
-    },
-    plugins: {
-      legend: {
-        display: false,
-      }
-    }
-  }
-});
-
-
-
-
-
+// var options = {
+//   series: [25, 15, 44, 55, 41, 17],
+//   chart: {
+//     width: '100%',
+//     type: 'pie',
+//   },
+//   labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+//   theme: {
+//     monochrome: {
+//       enabled: true
+//     }
+//   },
+//   plotOptions: {
+//     pie: {
+//       dataLabels: {
+//         offset: -5
+//       }
+//     }
+//   },
+//   title: {
+//     text: "Monochrome Pie"
+//   },
+//   dataLabels: {
+//     formatter(val, opts) {
+//       const name = opts.w.globals.labels[opts.seriesIndex]
+//       return [name, val.toFixed(1) + '%']
+//     }
+//   },
+//   legend: {
+//     show: false
+//   }
+// };

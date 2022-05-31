@@ -22,22 +22,12 @@
 
                 </select>
             </div>
-            <div class="precio-box">
-                <div class="signo-item-precio">
-                    <div>
-                        <i class="fa-solid fa-plus"></i>
-                    </div>
-                </div>
-
-                <div class="item-input">
-                    <label class="input">
-                        <input class="input__field" name="precio" type="number" step=".01" id="precio" min="00.0" placeholder=" " require />
-                        <span class="input__label">Precio</span>
-                    </label>
-                </div>
-
-            </div>
-
+            <div class="item-input">
+                <label class="input">
+                    <input class="input__field" name="precio" type="number" step=".01" id="precio" placeholder=" " require />
+                    <span class="input__label">Precio</span>
+                </label>
+            </div>  
             <div class="item-input">
                 <select name="cuenta" id="cuentas" class="option-form" require>
 

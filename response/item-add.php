@@ -8,7 +8,6 @@
         $categoria = trim($_POST['categoria']);
         $cuenta = trim($_POST['cuenta']);
         
-    
         if((isset($precio) and $precio != "") and (isset($fecha) and $fecha != "" ) and (isset($categoria) and $categoria != "" ) and (isset($cuenta) and $cuenta != "" )){
     
             $query = "Call SP_Item_Insertar($precio, '$detalle', '$fecha', $categoria, $cuenta)";
